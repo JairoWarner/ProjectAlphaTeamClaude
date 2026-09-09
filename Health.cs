@@ -1,7 +1,7 @@
 public class Health
 {
-    public int Currenthitpoints;
-    public int Maximumhitpoints;
+    public int Currenthitpoints = 30;
+    public int Maximumhitpoints = 30;
 
     public Health(int currenthitpoints, int maximumhitpoints)
     {

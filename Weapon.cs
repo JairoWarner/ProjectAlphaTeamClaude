@@ -10,4 +10,9 @@ public class Weapon
         Name = weaponName;
         Damage = weaponDamage;
     }
+
+    public void Attack(Health target)
+    {
+        target.TakeDamage(Damage);
+    }
 }
