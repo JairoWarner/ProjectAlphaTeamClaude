@@ -10,6 +10,7 @@ public class Location
     public Location LocationToWest;
     public Quest QuestAvailableHere;
     public Monster MonsterLivingHere;
+    public NPC? NPCHere;
 
     public Location(int id, string name, string description, Location north, Location east, Location south, Location west)
     {
