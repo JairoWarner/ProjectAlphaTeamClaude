@@ -15,27 +15,20 @@ public class Player
         CurrentLocation = null;
     }
 
-<<<<<<< HEAD
     public bool IfAlive()
     {
-        return CurrentHitPoints > 0;
+        return health.IsAlive();
     }
 
     public void Heal(int amount)
     {
-        CurrentHitPoints += amount;
-        if (CurrentHitPoints > MaximumHitPoints)
-        {
-            CurrentHitPoints = MaximumHitPoints;
-        }
+        health.Heal(amount);
     }
     public int CalculateDamage()
     {
         return World.RandomGenerator.Next(0, CurrentWeapon.Damage + 1);
     }
-=======
-    //if (player.Health.IsAlive())
-    //player.Health.TakeDamage(10);
->>>>>>> 30d308dd2b9b90a502e6c7c9c6f6c4173e895d71
+
+
 
 }
