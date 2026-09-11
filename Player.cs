@@ -3,20 +3,19 @@
 public class Player
 {
     public string Name;
-    public int CurrentHitPoints;
-    public int MaximumHitPoints;
+    public Health health;
     public Weapon CurrentWeapon;
     public Location CurrentLocation;
 
     public Player(string name, int currenthitpoints, int maximumhitpoints)
     {
         Name = name;
-        CurrentHitPoints = currenthitpoints;
-        MaximumHitPoints = maximumhitpoints;
+        health = new Health(currenthitpoints, maximumhitpoints);
         CurrentWeapon = null;
         CurrentLocation = null;
     }
 
+<<<<<<< HEAD
     public bool IfAlive()
     {
         return CurrentHitPoints > 0;
@@ -34,5 +33,9 @@ public class Player
     {
         return World.RandomGenerator.Next(0, CurrentWeapon.Damage + 1);
     }
+=======
+    //if (player.Health.IsAlive())
+    //player.Health.TakeDamage(10);
+>>>>>>> 30d308dd2b9b90a502e6c7c9c6f6c4173e895d71
 
 }
