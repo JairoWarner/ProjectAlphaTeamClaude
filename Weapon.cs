@@ -1,3 +1,4 @@
+namespace ConsoleApp4;
 public class Weapon
 {
     public int ID;

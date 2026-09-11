@@ -1,4 +1,6 @@
-﻿class Player
+﻿namespace ConsoleApp4;
+
+public class Player
 {
     public string Name;
     public int CurrentHitPoints;
@@ -28,6 +30,9 @@
             CurrentHitPoints = MaximumHitPoints;
         }
     }
-
+    public int CalculateDamage()
+    {
+        return World.RandomGenerator.Next(0, CurrentWeapon.Damage + 1);
+    }
 
 }

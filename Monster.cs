@@ -1,3 +1,5 @@
+namespace ConsoleApp4;
+
 public class Monster
 {
     public int ID;
@@ -17,5 +19,15 @@ public class Monster
         MaximumHitPoints = maximumhitpoints;
         Special = special;
         SpecialChance = specialchance;
+    }
+
+    public bool IfAlive()
+    {
+        return CurrentHitPoints > 0;
+    }
+
+    public int CalculateDamage()
+    {
+        return World.RandomGenerator.Next(0, MaximumDamage + 1);
     }
 }

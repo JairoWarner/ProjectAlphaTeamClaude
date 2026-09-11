@@ -1,3 +1,4 @@
+namespace ConsoleApp4;
 public class Location
 {
     public int ID;
