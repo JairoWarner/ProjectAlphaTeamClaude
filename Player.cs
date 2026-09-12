@@ -63,6 +63,7 @@ public class Player
                             Console.WriteLine($"You have decided to stick around for a little while longer");
                         }
                     }
+                    Console.WriteLine($"Your current location is: {CurrentLocation}");
                     break;
 
                 case "E":
@@ -85,6 +86,7 @@ public class Player
                             Console.WriteLine($"You have decided to stick around for a little while longer");
                         }
                     }
+                    Console.WriteLine($"Your current location is: {CurrentLocation}");
                     break;
                 case "S":
                     if(CurrentLocation.LocationToSouth == null)
@@ -106,6 +108,7 @@ public class Player
                             Console.WriteLine($"You have decided to stick around for a little while longer");
                         }
                     }
+                    Console.WriteLine($"Your current location is: {CurrentLocation}");
                     break;
 
                 case "W":
@@ -128,10 +131,12 @@ public class Player
                             Console.WriteLine($"You have decided to stick around for a little while longer");
                         }
                     }
+                    Console.WriteLine($"Your current location is: {CurrentLocation}");
                     break;
 
                 case "Q":
                     Console.WriteLine($"You've decided not to travel after all");
+                    Console.WriteLine($"Your current location is: {CurrentLocation}");
                     break;
 
             }
