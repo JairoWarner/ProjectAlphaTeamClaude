@@ -29,7 +29,7 @@ public class Player
         return World.RandomGenerator.Next(0, CurrentWeapon.Damage + 1);
     }
 
-    public void MoveLocations(Location CurrentLocation)
+    public void MoveLocations()
     {
 
         bool moving = false;
@@ -50,11 +50,11 @@ public class Player
                     }
                     else
                     {
-                        Console.WriteLine($"You're planning to go North, towards {CurrentLocation.LocationToNorth}. Are you sure? (Y/N)");
+                        Console.WriteLine($"You're planning to go North, towards {CurrentLocation.LocationToNorth.Name}. Are you sure? (Y/N)");
                         confirmation = Console.ReadLine().ToUpper();
                         if(confirmation == "Y")
                         {
-                            Console.WriteLine($"You embark upon your path to {CurrentLocation.LocationToNorth}");
+                            Console.WriteLine($"You embark upon your path to {CurrentLocation.LocationToNorth.Name}");
                             CurrentLocation = CurrentLocation.LocationToNorth;
                             moving = true;
                         }
@@ -63,7 +63,7 @@ public class Player
                             Console.WriteLine($"You have decided to stick around for a little while longer");
                         }
                     }
-                    Console.WriteLine($"Your current location is: {CurrentLocation}");
+                    Console.WriteLine($"Your current location is: {CurrentLocation.Name}");
                     break;
 
                 case "E":
@@ -73,11 +73,11 @@ public class Player
                     }
                     else
                     {
-                        Console.WriteLine($"You're planning to go East, towards {CurrentLocation.LocationToEast}. Are you sure? (Y/N)");
+                        Console.WriteLine($"You're planning to go East, towards {CurrentLocation.LocationToEast.Name}. Are you sure? (Y/N)");
                         confirmation = Console.ReadLine().ToUpper();
                         if(confirmation == "Y")
                         {
-                            Console.WriteLine($"You embark upon your path to {CurrentLocation.LocationToEast}");
+                            Console.WriteLine($"You embark upon your path to {CurrentLocation.LocationToEast.Name}");
                             CurrentLocation = CurrentLocation.LocationToEast;
                             moving = true;
                         }
@@ -86,7 +86,7 @@ public class Player
                             Console.WriteLine($"You have decided to stick around for a little while longer");
                         }
                     }
-                    Console.WriteLine($"Your current location is: {CurrentLocation}");
+                    Console.WriteLine($"Your current location is: {CurrentLocation.Name}");
                     break;
                 case "S":
                     if(CurrentLocation.LocationToSouth == null)
@@ -95,11 +95,11 @@ public class Player
                     }
                     else
                     {
-                        Console.WriteLine($"You're planning to go West, towards {CurrentLocation.LocationToSouth}. Are you sure? (Y/N)");
+                        Console.WriteLine($"You're planning to go West, towards {CurrentLocation.LocationToSouth.Name}. Are you sure? (Y/N)");
                         confirmation = Console.ReadLine().ToUpper();
                         if(confirmation == "Y")
                         {
-                            Console.WriteLine($"You embark upon your path to {CurrentLocation.LocationToSouth}");
+                            Console.WriteLine($"You embark upon your path to {CurrentLocation.LocationToSouth.Name}");
                             CurrentLocation = CurrentLocation.LocationToSouth;
                             moving = true;
                         }
@@ -108,7 +108,7 @@ public class Player
                             Console.WriteLine($"You have decided to stick around for a little while longer");
                         }
                     }
-                    Console.WriteLine($"Your current location is: {CurrentLocation}");
+                    Console.WriteLine($"Your current location is: {CurrentLocation.Name}");
                     break;
 
                 case "W":
@@ -118,11 +118,11 @@ public class Player
                     }
                     else
                     {
-                        Console.WriteLine($"You're planning to go West, towards {CurrentLocation.LocationToWest}. Are you sure? (Y/N)");
+                        Console.WriteLine($"You're planning to go West, towards {CurrentLocation.LocationToWest.Name}. Are you sure? (Y/N)");
                         confirmation = Console.ReadLine().ToUpper();
                         if(confirmation == "Y")
                         {
-                            Console.WriteLine($"You embark upon your path to {CurrentLocation.LocationToWest}");
+                            Console.WriteLine($"You embark upon your path to {CurrentLocation.LocationToWest.Name}");
                             CurrentLocation = CurrentLocation.LocationToWest;
                             moving = true;
                         }
@@ -131,12 +131,12 @@ public class Player
                             Console.WriteLine($"You have decided to stick around for a little while longer");
                         }
                     }
-                    Console.WriteLine($"Your current location is: {CurrentLocation}");
+                    Console.WriteLine($"Your current location is: {CurrentLocation.Name}");
                     break;
 
                 case "Q":
                     Console.WriteLine($"You've decided not to travel after all");
-                    Console.WriteLine($"Your current location is: {CurrentLocation}");
+                    Console.WriteLine($"Your current location is: {CurrentLocation.Name}");
                     break;
 
             }
