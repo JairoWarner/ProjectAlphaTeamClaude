@@ -5,8 +5,7 @@ public class Monster
     public int ID;
     public string Name;
     public int MaximumDamage;
-    public int CurrentHitPoints;
-    public int MaximumHitPoints;
+    public Health health;
     public string Special;
     public int SpecialChance;
 
@@ -15,15 +14,14 @@ public class Monster
         ID = id;
         Name = name;
         MaximumDamage = maximumdamage;
-        CurrentHitPoints = currenthitpoints;
-        MaximumHitPoints = maximumhitpoints;
+        health = new Health(currenthitpoints, maximumhitpoints);
         Special = special;
         SpecialChance = specialchance;
     }
 
     public bool IfAlive()
     {
-        return CurrentHitPoints > 0;
+        return health.IsAlive();
     }
 
     public int CalculateDamage()
