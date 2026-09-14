@@ -43,6 +43,10 @@ public static class Battle
                     Console.WriteLine("You need more HP to flee!");
                 }
             }
+            else if (choice.ToUpper() == "I")
+            {
+                Console.WriteLine("...");
+            }
 
             Console.WriteLine("Press any key to continue...");
             Console.ReadKey();
