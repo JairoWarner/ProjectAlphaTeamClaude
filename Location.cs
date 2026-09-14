@@ -22,4 +22,15 @@ public class Location
         LocationToSouth = south;
         LocationToWest = west;
     }
+
+    public void ShowMap()
+    {
+        Console.WriteLine($"                P              ");
+        Console.WriteLine($"                |              ");
+        Console.WriteLine($"                A              ");
+        Console.WriteLine($"                |              ");
+        Console.WriteLine($"    V  -  F  -  T  -  G  -  B  -  S    ");
+        Console.WriteLine($"                |              ");
+        Console.WriteLine($"                H              ");
+    }
 }
