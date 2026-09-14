@@ -1,11 +1,7 @@
 using ConsoleApp4;
 
 Console.Write("Wat is je naam? ");
-string? playerName = Console.ReadLine();
-if (string.IsNullOrEmpty(playerName))
-{
-    playerName = "Held";
-}
+string playerName = Console.ReadLine();
 
 Player player = new Player(playerName, 30, 30);
 player.CurrentWeapon = World.WeaponByID(World.WEAPON_ID_RUSTY_SWORD);
