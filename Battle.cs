@@ -22,7 +22,7 @@ public static class Battle
                 monster.health.TakeDamage(playerDamage);
                 if (playerDamage > 0)
                 {
-                    Console.WriteLine($"You dealt {playerDamage} to the {monster.Name}!\nPlayer HP: {player.health.Currenthitpoints}\nMonster HP: {monster.health.Currenthitpoints}");
+                    Console.WriteLine($"You dealt {playerDamage} damage to the {monster.Name}!\nPlayer HP: {player.health.Currenthitpoints}\nMonster HP: {monster.health.Currenthitpoints}");
                 }
                 else
                 {
@@ -54,7 +54,7 @@ public static class Battle
                 player.health.TakeDamage(monsterDamage);
                 if (monsterDamage > 0)
                 {
-                    Console.WriteLine($"The Monster dealt {monsterDamage} to the you!\nPlayer HP: {player.health.Currenthitpoints}\nMonster HP: {monster.health.Currenthitpoints}");
+                    Console.WriteLine($"The Monster dealt {monsterDamage} damage to the you!\nPlayer HP: {player.health.Currenthitpoints}\nMonster HP: {monster.health.Currenthitpoints}");
                 }
                 else
                 {

@@ -6,6 +6,8 @@ public class Player
     public Health health;
     public Weapon CurrentWeapon;
     public Location CurrentLocation;
+    public List<Quest> ActiveQuests = new([]);
+    public List<Quest> CompletedQuests = new([]);
 
     public Player(string name, int currenthitpoints, int maximumhitpoints)
     {
@@ -95,7 +97,7 @@ public class Player
                     }
                     else
                     {
-                        Console.WriteLine($"You're planning to go West, towards {CurrentLocation.LocationToSouth.Name}. Are you sure? (Y/N)");
+                        Console.WriteLine($"You're planning to go South, towards {CurrentLocation.LocationToSouth.Name}. Are you sure? (Y/N)");
                         confirmation = Console.ReadLine().ToUpper();
                         if(confirmation == "Y")
                         {

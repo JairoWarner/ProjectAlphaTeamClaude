@@ -21,7 +21,8 @@ while (playing && player.IfAlive())
     Console.WriteLine("\n1: See game stats");
     Console.WriteLine("2: Move");
     Console.WriteLine("3: Fight");
-    Console.WriteLine("4: Quit");
+    Console.WriteLine("4: Talk");
+    Console.WriteLine("5: Quit");
     Console.Write("> ");
     string? choice = Console.ReadLine();
 
@@ -39,7 +40,32 @@ while (playing && player.IfAlive())
         case "3":
             if (player.CurrentLocation.MonsterLivingHere != null)
             {
-                Battle.Fight(player, player.CurrentLocation.MonsterLivingHere);
+                Monster monster = player.CurrentLocation.MonsterLivingHere;
+                Battle.Fight(player, monster);
+
+                if (!monster.IfAlive())
+                {
+                    Quest TargetQuest = null;
+                    foreach (Quest quest in player.ActiveQuests)
+                    {
+                        if (quest.TargetMonsterID == monster.ID)
+                        {
+                            TargetQuest = quest;
+                        }
+                    }
+                    if (TargetQuest != null)
+                    {
+                        TargetQuest.RegisterKill();
+                        Console.WriteLine($"You currently have {TargetQuest.CurrentKills}/{TargetQuest.RequiredKills} Kills");
+
+                        if (TargetQuest.IsCompleted())
+                        {
+                            player.CompletedQuests.Add(TargetQuest);
+                            player.ActiveQuests.Remove(TargetQuest);
+                        }
+                    }
+                    monster.health.Heal(monster.health.Maximumhitpoints);
+                }
             }
             else
             {
@@ -48,6 +74,31 @@ while (playing && player.IfAlive())
             break;
 
         case "4":
+            if (player.CurrentLocation.NPCHere == null)
+            {
+                Console.WriteLine("There is no one here to talk to!");
+            }
+            else
+            {
+                NPC npc = player.CurrentLocation.NPCHere;
+                if (player.CompletedQuests.Contains(npc.QuestToGive))
+                {
+                    Console.WriteLine("You have already completed this quest!");
+                }
+                else if (!player.ActiveQuests.Contains(npc.QuestToGive))
+                {
+                    player.ActiveQuests.Add(npc.QuestToGive);
+                    Console.WriteLine($"You have received a new quest: {npc.QuestToGive.Name}");
+                    Console.WriteLine(npc.QuestToGive.Description);
+                }
+                else
+                {
+                    Console.WriteLine("This quest is already active!");
+                }
+
+            }
+            break;
+        case "5":
             playing = false;
             break;
 
