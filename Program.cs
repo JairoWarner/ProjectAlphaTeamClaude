@@ -1,13 +1,13 @@
 using ConsoleApp4;
 
-Console.Write("Wat is je naam? ");
+Console.Write("What is your name");
 string playerName = Console.ReadLine();
 
 Player player = new Player(playerName, 30, 30);
 player.CurrentWeapon = World.WeaponByID(World.WEAPON_ID_RUSTY_SWORD);
 player.CurrentLocation = World.LocationByID(World.LOCATION_ID_HOME);
 
-Console.WriteLine($"\nWelkom, {player.Name}!");
+Console.WriteLine($"\nWelcome, {player.Name}!");
 
 bool playing = true;
 while (playing && player.IfAlive())
