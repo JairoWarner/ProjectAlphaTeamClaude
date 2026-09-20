@@ -2,7 +2,8 @@
 
 public static class World
 {
-    public static readonly List<Item> Items = new List<Item>();
+
+    public static readonly List<Weapon> Weapons = new List<Weapon>();
     public static readonly List<Monster> Monsters = new List<Monster>();
     public static readonly List<Quest> Quests = new List<Quest>();
     public static readonly List<Location> Locations = new List<Location>();
@@ -44,15 +45,7 @@ public static class World
 
     public static void PopulateItems()
     {
-        Items.Add(new Item(
-            WEAPON_ID_RUSTY_SWORD,
-            "Rusty sword",
-            5,
-            0,
-            "An old sword covered in rust. Not pretty, but it still gets the job done.",
-            false,
-            "weapon",
-            true
+        Items.Add(new Item(WEAPON_ID_RUSTY_SWORD, "Rusty sword", 5, 0, "An old sword covered in rust. Not pretty, but it still gets the job done.", false, "weapon", true
         ));
 
         Items.Add(new Item(
@@ -177,90 +170,24 @@ public static class World
             null
         );
 
-        Location townSquare = new Location(
-            LOCATION_ID_TOWN_SQUARE,
-            "Town square",
-            "You see a fountain.",
-            null,
-            null,
-            null,
-            null
-        );
+        Location townSquare = new Location(LOCATION_ID_TOWN_SQUARE, "Town square", "You see a fountain. in the middle of the square.", null, null, null, null);
 
-        Location alchemistHut = new Location(
-            LOCATION_ID_ALCHEMIST_HUT,
-            "Alchemist's hut",
-            "There are many strange plants on the shelves.",
-            null,
-            null,
-            null,
-            null
-        );
+        Location alchemistHut = new Location(LOCATION_ID_ALCHEMIST_HUT, "Alchemist's hut", "There are many strange plants on the shelves. The alchemist is busy brewing a potion.", null, null, null, null);
 
-        Location alchemistsGarden = new Location(
-            LOCATION_ID_ALCHEMISTS_GARDEN,
-            "Alchemist's garden",
-            "Many plants are growing here.",
-            null,
-            null,
-            null,
-            null
-        );
+        Location alchemistsGarden = new Location(LOCATION_ID_ALCHEMISTS_GARDEN, "Alchemist's garden", "Many plants are growing here. You notice several rats scurrying between the plants.", null, null, null, null);
 
         alchemistsGarden.MonsterLivingHere = MonsterByID(MONSTER_ID_RAT);
 
-        Location farmhouse = new Location(
-            LOCATION_ID_FARMHOUSE,
-            "Farmhouse",
-            "There is a small farmhouse, with a farmer in front.",
-            null,
-            null,
-            null,
-            null
-        );
+        Location farmhouse = new Location(LOCATION_ID_FARMHOUSE, "Farmhouse", "this farmhouse does look cute! a farmer is in front.", null, null, null, null);
 
-        Location farmersField = new Location(
-            LOCATION_ID_FARM_FIELD,
-            "Farmer's field",
-            "You see rows of vegetables growing here.",
-            null,
-            null,
-            null,
-            null
-        );
-
+        Location farmersField = new Location(LOCATION_ID_FARM_FIELD, "Farmer's field", "You see rows of vegetables growing here.", null, null, null, null);
         farmersField.MonsterLivingHere = MonsterByID(MONSTER_ID_SNAKE);
 
-        Location guardPost = new Location(
-            LOCATION_ID_GUARD_POST,
-            "Guard post",
-            "There is a large, tough-looking guard here.",
-            null,
-            null,
-            null,
-            null
-        );
+        Location guardPost = new Location(LOCATION_ID_GUARD_POST, "Guard post", "There is a large, tough-looking guard here. maybe he can help you.", null, null, null, null);
 
-        Location bridge = new Location(
-            LOCATION_ID_BRIDGE,
-            "Bridge",
-            "A stone bridge crosses a wide river.",
-            null,
-            null,
-            null,
-            null
-        );
+        Location bridge = new Location(LOCATION_ID_BRIDGE, "Bridge", "The stone bridge crosses a wide river. that does seem like a good place to cross.", null, null, null, null);
 
-        Location spiderField = new Location(
-            LOCATION_ID_SPIDER_FIELD,
-            "Forest",
-            "You see spider webs covering the trees in this forest.",
-            null,
-            null,
-            null,
-            null
-        );
-
+        Location spiderField = new Location(LOCATION_ID_SPIDER_FIELD, "Forest", "You see spider webs covering the trees in this forest. weird sounds are everywhere....", null, null, null, null);
         spiderField.MonsterLivingHere = MonsterByID(MONSTER_ID_GIANT_SPIDER);
 
         home.LocationToNorth = townSquare;

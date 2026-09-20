@@ -6,6 +6,8 @@ public class Player
     public Health health;
     public Item CurrentWeapon;
     public Location CurrentLocation;
+    public List<Quest> ActiveQuests = new([]);
+    public List<Quest> CompletedQuests = new([]);
 
     public Player(string name, int currenthitpoints, int maximumhitpoints)
     {
