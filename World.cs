@@ -15,6 +15,7 @@ public static class World
     public const int ITEM_ID_HEALING_POTION = 3;
     public const int ITEM_ID_STRENGTH_POTION = 4;
     public const int ITEM_ID_JUST_BREAD = 5;
+    public const int ITEM_ID_GOLDEN_APPLE = 6;
 
     public const int MONSTER_ID_RAT = 1;
     public const int MONSTER_ID_SNAKE = 2;
@@ -50,6 +51,7 @@ public static class World
         Items.Add(new Item(WEAPON_ID_CLUB, "Club", 10, 0, "A thick wooden club that hits harder than it looks.", false, "weapon", false, 0, false));
         Items.Add(new Item(ITEM_ID_HEALING_POTION, "Healing potion", 0, 10, "Good soup.", false, "healing potion", true, 1, true));
         Items.Add(new Item(ITEM_ID_STRENGTH_POTION, "Strength potion", 0, 5, "Gooder soup.", false, "strength potion", true, 0, true));
+        Items.Add(new Item(ITEM_ID_GOLDEN_APPLE, "Golden apple", 0, 20, "A shiny golden apple that restores a lot of health.", false, "healing food", true, 0, true));
         Items.Add(new Item(ITEM_ID_JUST_BREAD, "Just bread", 0, 0, "The developers needed an item to test whether it would stay out of the battle inventory, so now you have Just Bread. It's not disposable, it's not edible, and it refuses to leave. Congratulations, this bread is now your permanent companion.", false, "bread", false, 0, false));
     }
 
@@ -75,7 +77,7 @@ public static class World
             new Quest(
                 QUEST_ID_CLEAR_ALCHEMIST_GARDEN,
                 "Clear the alchemist's garden",
-                "Kill rats in the alchemist's garden ", 3, MONSTER_ID_RAT);
+                "Kill rats in the alchemist's garden ", 3, MONSTER_ID_RAT, ITEM_ID_HEALING_POTION);
 
 
 
@@ -83,14 +85,14 @@ public static class World
             new Quest(
                 QUEST_ID_CLEAR_FARMERS_FIELD,
                 "Clear the farmer's field",
-                "Kill snakes in the farmer's field", 3, MONSTER_ID_SNAKE);
+                "Kill snakes in the farmer's field", 3, MONSTER_ID_SNAKE, ITEM_ID_STRENGTH_POTION);
 
 
         Quest clearSpidersForest =
                     new Quest(
                         QUEST_ID_COLLECT_SPIDER_SILK,
                         "Collect spider silk",
-                        "Kill spiders in the spider forest", 3, MONSTER_ID_GIANT_SPIDER);
+                        "Kill spiders in the spider forest", 3, MONSTER_ID_GIANT_SPIDER, ITEM_ID_GOLDEN_APPLE);
 
 
         Quests.Add(clearAlchemistGarden);
