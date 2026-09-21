@@ -33,8 +33,15 @@ while (playing && player.IfAlive())
     switch (choice)
     {
         case "1":
+            Console.WriteLine();
             Console.WriteLine($"HP: {player.Health.Currenthitpoints}/{player.Health.Maximumhitpoints}");
-            Console.WriteLine($"Weapon: {player.CurrentWeapon.Name} ({player.CurrentWeapon.Damage} damage)");
+            Console.WriteLine($"Weapon: {player.CurrentWeapon.Name} ({player.CurrentWeapon.Damage} damage)\n");
+            foreach (var quest in player.ActiveQuests)
+                Console.WriteLine($"Active Quest:\n{quest.Name}\n");
+            Console.WriteLine($"Completed Quest ({player.CompletedQuests.Count}/3):");
+            foreach (var quest in player.CompletedQuests)
+                Console.WriteLine(quest.Name);
+
             break;
 
         case "2":
