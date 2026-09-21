@@ -25,11 +25,12 @@ while (playing && player.IfAlive())
     switch (choice)
     {
         case "1":
+            Console.WriteLine();
             Console.WriteLine($"HP: {player.health.Currenthitpoints}/{player.health.Maximumhitpoints}");
-            Console.WriteLine($"Weapon: {player.CurrentWeapon.Name} ({player.CurrentWeapon.Damage} damage)");
+            Console.WriteLine($"Weapon: {player.CurrentWeapon.Name} ({player.CurrentWeapon.Damage} damage)\n");
             foreach (var quest in player.ActiveQuests)
-                Console.WriteLine($"Active Quest:\n{quest.Name}");
-            Console.WriteLine($"Completed Quest:");
+                Console.WriteLine($"Active Quest:\n{quest.Name}\n");
+            Console.WriteLine($"Completed Quest ({player.CompletedQuests.Count}/3):");
             foreach (var quest in player.CompletedQuests)
                 Console.WriteLine(quest.Name);
 
@@ -40,6 +41,7 @@ while (playing && player.IfAlive())
             break;
 
         case "3":
+            Console.WriteLine();
             if (player.CurrentLocation.MonsterLivingHere != null)
             {
                 Monster monster = player.CurrentLocation.MonsterLivingHere;
@@ -57,6 +59,7 @@ while (playing && player.IfAlive())
                     }
                     if (TargetQuest != null)
                     {
+                        Console.WriteLine();
                         TargetQuest.RegisterKill();
                         Console.WriteLine($"You currently have {TargetQuest.CurrentKills}/{TargetQuest.RequiredKills} Kills");
 
@@ -76,6 +79,7 @@ while (playing && player.IfAlive())
             break;
 
         case "4":
+            Console.WriteLine();
             if (player.CurrentLocation.NPCHere == null)
             {
                 Console.WriteLine("There is no one here to talk to!");
@@ -83,38 +87,53 @@ while (playing && player.IfAlive())
             else
             {
                 NPC npc = player.CurrentLocation.NPCHere;
-                if (player.CompletedQuests.Contains(npc.QuestToGive))
+                if (npc.Name == "Guard")
                 {
-                    Console.WriteLine("You have already completed this quest!");
-                }
-                else if (!player.ActiveQuests.Contains(npc.QuestToGive))
-                {
-                    Console.WriteLine($"You have received a new quest: {npc.QuestToGive.Name}");
-                    Console.WriteLine(npc.QuestToGive.Description);
-                    Console.WriteLine("Do you want to accept the quest? (Y/N)");
-                    string questChoice = " ";
-                    while (questChoice.ToUpper() != "Y" && questChoice.ToUpper() != "N")
+                    if (player.CompletedQuests.Count >= 2)
                     {
-                        questChoice = Console.ReadLine();
-                    }
-                    if (questChoice.ToUpper() == "Y" && player.ActiveQuests.Count < 1)
-                    {
-                        player.ActiveQuests.Add(npc.QuestToGive);
-                    }
-                    else if (questChoice.ToUpper() == "Y" && player.ActiveQuests.Count >= 1)
-                    {
-                        Console.WriteLine("You already have an active quest!");
+                        Console.WriteLine("You may pass");
                     }
                     else
                     {
-                        Console.WriteLine("You have denied the quest.");
+                        Console.WriteLine("You have not completed enough quests to pass!");
+                        player.CurrentLocation = player.CurrentLocation.LocationToWest;
                     }
                 }
                 else
                 {
-                    Console.WriteLine("This quest is already active!");
+                    if (player.CompletedQuests.Contains(npc.QuestToGive))
+                    {
+                        Console.WriteLine("You have already completed this quest!");
+                    }
+                    else if (!player.ActiveQuests.Contains(npc.QuestToGive))
+                    {
+                        Console.WriteLine($"You have received a new quest: {npc.QuestToGive.Name}");
+                        Console.WriteLine(npc.QuestToGive.Description);
+                        Console.WriteLine("\nDo you want to accept the quest? (Y/N)");
+                        string questChoice = " ";
+                        while (questChoice.ToUpper() != "Y" && questChoice.ToUpper() != "N")
+                        {
+                            questChoice = Console.ReadLine();
+                        }
+                        Console.WriteLine();
+                        if (questChoice.ToUpper() == "Y" && player.ActiveQuests.Count < 1)
+                        {
+                            player.ActiveQuests.Add(npc.QuestToGive);
+                        }
+                        else if (questChoice.ToUpper() == "Y" && player.ActiveQuests.Count >= 1)
+                        {
+                            Console.WriteLine("You already have an active quest!");
+                        }
+                        else
+                        {
+                            Console.WriteLine("You have denied the quest.");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("This quest is already active!");
+                    }
                 }
-
             }
             break;
         case "5":

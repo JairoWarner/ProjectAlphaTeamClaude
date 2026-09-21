@@ -7,6 +7,7 @@ public static class Battle
         bool hasFled = false;
         while (player.IfAlive() && monster.IfAlive()) // check of speler en monster nog leven
         {
+            Console.WriteLine();
             List<string> choiceMenu = new(["A", "F", "I"]);
             string choice = " ";
             while (!choiceMenu.Contains(choice.ToUpper()))
@@ -16,6 +17,7 @@ public static class Battle
                 Console.WriteLine("I: Inventory");
                 choice = Console.ReadLine();
             }
+            Console.WriteLine();
             if (choice.ToUpper() == "A")
             {
                 int playerDamage = player.CalculateDamage();
@@ -46,8 +48,9 @@ public static class Battle
                 Console.WriteLine("...");
             }
 
-            Console.WriteLine("Press any key to continue...");
+            Console.WriteLine("\nPress any key to continue...");
             Console.ReadKey();
+            Console.WriteLine();
             if (monster.IfAlive()) // check of het monster nog leeft anders kan er aangevallen worden terwijl die al dood is
             {
                 int monsterDamage = monster.CalculateDamage();
@@ -62,6 +65,7 @@ public static class Battle
                 }
             }
         }
+        Console.WriteLine();
         if (player.IfAlive() && hasFled == false)
         {
             Console.WriteLine($"You have defeated the {monster.Name}");
