@@ -41,7 +41,7 @@ while (playing && player.IfAlive())
     Console.ForegroundColor = ConsoleColor.Cyan;
     Console.WriteLine($"\nYou are at: {player.CurrentLocation.Name}");
 
-    Console.ForegroundColor = ConsoleColor.DarkGray;
+    Console.ForegroundColor = ConsoleColor.Gray;
     Console.WriteLine(player.CurrentLocation.Description);
 
     Console.ForegroundColor = ConsoleColor.Green;

@@ -39,6 +39,7 @@ public class Player
         string confirmation = "";
 
         CurrentLocation.ShowMap();
+        Console.WriteLine();
         Console.WriteLine($"You are currently at {CurrentLocation.Name}");
 
         while (moving == false && moving_to != "Q")
