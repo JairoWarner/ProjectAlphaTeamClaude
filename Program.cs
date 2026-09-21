@@ -1,6 +1,6 @@
 using ConsoleApp4;
 
-Console.Write("What is your name");
+Console.Write("What is your name? ");
 string playerName = Console.ReadLine();
 
 Player player = new Player(playerName, 30, 30);
@@ -83,9 +83,20 @@ while (playing && player.IfAlive())
                 }
                 else if (!player.ActiveQuests.Contains(npc.QuestToGive))
                 {
-                    player.ActiveQuests.Add(npc.QuestToGive);
                     Console.WriteLine($"You have received a new quest: {npc.QuestToGive.Name}");
                     Console.WriteLine(npc.QuestToGive.Description);
+                    Console.WriteLine("Do you want to accept the quest? (Y/N)");
+                    string questChoice = " ";
+                    while (questChoice.ToUpper() != "Y" && questChoice.ToUpper() != "N")
+                    {
+                        questChoice = Console.ReadLine();
+                    }
+                    if (questChoice.ToUpper() == "Y")
+                        player.ActiveQuests.Add(npc.QuestToGive);
+                    else
+                    {
+                        Console.WriteLine("You have denied the quest.");
+                    }
                 }
                 else
                 {
