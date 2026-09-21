@@ -29,6 +29,7 @@ public static class World
     public const int LOCATION_ID_FARM_FIELD = 7;
     public const int LOCATION_ID_BRIDGE = 8;
     public const int LOCATION_ID_SPIDER_FIELD = 9;
+    public const int LOCATION_ID_SHOP = 10;
 
     static World()
     {
@@ -115,8 +116,11 @@ public static class World
         Location spiderField = new Location(LOCATION_ID_SPIDER_FIELD, "Forest", "You see spider webs covering the trees in this forest. weird sounds are everywhere....", null, null, null, null);
         spiderField.MonsterLivingHere = MonsterByID(MONSTER_ID_GIANT_SPIDER);
 
+        Location Shop = new Location(LOCATION_ID_SHOP, "Shop", "As you enter the shop you see the shopowner polishing his till.", null, null, null, null);
+
         // Link the locations together
         home.LocationToNorth = townSquare;
+        home.LocationToEast = Shop;
 
         townSquare.LocationToNorth = alchemistHut;
         townSquare.LocationToSouth = home;
@@ -135,6 +139,7 @@ public static class World
 
         guardPost.LocationToEast = bridge;
         guardPost.LocationToWest = townSquare;
+        guardPost.LocationToSouth = Shop;
 
         bridge.LocationToWest = guardPost;
         bridge.LocationToEast = spiderField;
@@ -151,6 +156,7 @@ public static class World
         Locations.Add(farmersField);
         Locations.Add(bridge);
         Locations.Add(spiderField);
+        Locations.Add(Shop);
     }
 
     public static Location LocationByID(int id)

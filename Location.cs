@@ -30,7 +30,7 @@ public class Location
         Console.WriteLine($"                A              ");
         Console.WriteLine($"                |              ");
         Console.WriteLine($"    V  -  F  -  T  -  G  -  B  -  S    ");
-        Console.WriteLine($"                |              ");
-        Console.WriteLine($"                H              ");
+        Console.WriteLine($"                |     |         ");
+        Console.WriteLine($"                H  -  S           ");
     }
 }
