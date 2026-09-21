@@ -27,6 +27,12 @@ while (playing && player.IfAlive())
         case "1":
             Console.WriteLine($"HP: {player.health.Currenthitpoints}/{player.health.Maximumhitpoints}");
             Console.WriteLine($"Weapon: {player.CurrentWeapon.Name} ({player.CurrentWeapon.Damage} damage)");
+            foreach (var quest in player.ActiveQuests)
+                Console.WriteLine($"Active Quest:\n{quest.Name}");
+            Console.WriteLine($"Completed Quest:");
+            foreach (var quest in player.CompletedQuests)
+                Console.WriteLine(quest.Name);
+
             break;
 
         case "2":
@@ -91,8 +97,14 @@ while (playing && player.IfAlive())
                     {
                         questChoice = Console.ReadLine();
                     }
-                    if (questChoice.ToUpper() == "Y")
+                    if (questChoice.ToUpper() == "Y" && player.ActiveQuests.Count < 1)
+                    {
                         player.ActiveQuests.Add(npc.QuestToGive);
+                    }
+                    else if (questChoice.ToUpper() == "Y" && player.ActiveQuests.Count >= 1)
+                    {
+                        Console.WriteLine("You already have an active quest!");
+                    }
                     else
                     {
                         Console.WriteLine("You have denied the quest.");
