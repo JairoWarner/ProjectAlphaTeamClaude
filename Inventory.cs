@@ -26,8 +26,9 @@ public static class Inventory
 
         if (choice == "2")
         {
+            GetInventory();
             Console.WriteLine("What item would you like to remove?");
-            string removeItem = Console.ReadLine();
+            int removeItem = int.Parse(Console.ReadLine());
 
             RemoveItemFromInventory(removeItem);
         }
@@ -97,18 +98,29 @@ public static class Inventory
         }
     }
 
-    public static void RemoveItemFromInventory(string item)
+    public static void RemoveItemFromInventory(int itemID)
     {
-        foreach (var inventoryItem in inventory)
+        int counter = 0;
+        for (int i = 0;  i < inventory.Count; i++)
         {
-            if (inventoryItem.Name == item)
+            if (inventory[i].ID == 5)
             {
-                inventory.Remove(inventoryItem);
+                foreach (string text in BreadStorys.breadStory1)
+                {
+                    Console.WriteLine(text);
+                    Console.ReadLine();
+                    Thread.Sleep(500);
+                    Console.Clear();
+                }
+            }
+            if (inventory[i].ID == itemID)
+            {
+                inventory.Remove(inventory[i]);
                 return;
             }
         }
 
-        Console.WriteLine($"{item} is not in the inventory");
+        Console.WriteLine($"{itemID} is not in the inventory");
     }
 
     public static void CheckDescription(int item)
@@ -191,7 +203,7 @@ public static class Inventory
                 Console.Write($"{inventoryItem.ID}: {inventoryItem.Name} ");
 
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write("\u001b[3mis equipped\u001b[0m");
+                Console.Write(" \u001b[3mis equipped\u001b[0m");
                 Console.ResetColor();
 
                 Console.WriteLine();

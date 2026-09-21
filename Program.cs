@@ -11,20 +11,54 @@ player.CurrentWeapon =
 player.CurrentLocation =
     World.LocationByID(World.LOCATION_ID_HOME);
 
-Console.WriteLine($"\nWelcome, {player.Name}!");
+Console.Clear();
+Console.WriteLine($"\u001b[33mWelcome, {player.Name}!\u001b[0m");
+Console.Write("Generating World");
+DateTime endTime = DateTime.Now.AddSeconds(5);
+
+while (DateTime.Now < endTime)
+{
+    Thread.Sleep(500);
+    Console.Write(".");
+    Thread.Sleep(500);
+
+    Console.Write(".");
+    Thread.Sleep(500);
+
+    Console.Write(".");
+    Thread.Sleep(500);
+
+    Console.Write("\b\b\b   \b\b\b");
+}
+
 
 bool playing = true;
 
 while (playing && player.IfAlive())
 {
+    Console.Clear();
+
+    Console.ForegroundColor = ConsoleColor.Cyan;
     Console.WriteLine($"\nYou are at: {player.CurrentLocation.Name}");
+
+    Console.ForegroundColor = ConsoleColor.DarkGray;
     Console.WriteLine(player.CurrentLocation.Description);
+
+    Console.ForegroundColor = ConsoleColor.Green;
     Console.WriteLine("\n1: See game stats");
     Console.WriteLine("2: Move");
+
+    Console.ForegroundColor = ConsoleColor.Green;
     Console.WriteLine("3: Fight");
+
+    Console.ForegroundColor = ConsoleColor.Green;
     Console.WriteLine("4: Inventory");
+
+    Console.ForegroundColor = ConsoleColor.Green;
     Console.WriteLine("5: Talk");
     Console.WriteLine("6: Quit");
+
+    Console.ResetColor();
     
     Console.Write("> ");
 

@@ -25,13 +25,14 @@ public class Location
 
     public void ShowMap()
     {
-        Console.WriteLine($"                P              ");
-        Console.WriteLine($"                |              ");
-        Console.WriteLine($"                A              ");
-        Console.WriteLine($"                |              ");
-        Console.WriteLine($"    V  -  F  -  T  -  G  -  B  -  S    ");
-        Console.WriteLine($"                |     |         ");
-        Console.WriteLine($"                H  -  S           ");
+        Console.Clear();
+        Console.WriteLine($"\u001b[32m                P              \u001b[0m");
+        Console.WriteLine($"\u001b[32m                |              \u001b[0m");
+        Console.WriteLine($"\u001b[32m                A              \u001b[0m");
+        Console.WriteLine($"\u001b[32m                |              \u001b[0m");
+        Console.WriteLine($"\u001b[32m    V  -  F  -  T  -  G  -  B  -  S    \u001b[0m");
+        Console.WriteLine($"\u001b[32m                |     |         \u001b[0m");
+        Console.WriteLine($"\u001b[32m                H  -  S           \u001b[0m");
     }
 
     public void TownSquare(Player player)
