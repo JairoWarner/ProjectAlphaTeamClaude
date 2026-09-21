@@ -96,7 +96,6 @@ while (playing && player.IfAlive())
                     else
                     {
                         Console.WriteLine("You have not completed enough quests to pass!");
-                        player.CurrentLocation = player.CurrentLocation.LocationToWest;
                     }
                 }
                 else
