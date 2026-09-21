@@ -25,7 +25,7 @@ while (playing && player.IfAlive())
     Console.WriteLine("4: Inventory");
     Console.WriteLine("5: Talk");
     Console.WriteLine("6: Quit");
-    
+
     Console.Write("> ");
 
     string? choice = Console.ReadLine();
@@ -92,6 +92,7 @@ while (playing && player.IfAlive())
             break;
 
         case "5":
+            Console.WriteLine();
             if (player.CurrentLocation.NPCHere == null)
             {
                 Console.WriteLine("There is no one here to talk to!");
