@@ -60,26 +60,40 @@ public static class Inventory
 
     public static void AddItemsToInventory(string item, int id, string description, bool equiped, string type, bool forBattle, int quantity, bool isStackable)
     {
-        foreach (var inventoryItem in inventory)
+        for (int i = 0; i < inventory.Count; i++)
         {
-            if (item == inventoryItem.Name)
+            if (inventory[i].ID  == id)
             {
-                if (isStackable == false)
+                if (!isStackable)
                     return;
                 
-                quantity += 1;
-            }
-            
-            if (item != inventoryItem.Name)
-            {
-                quantity += 1;
-                inventory.Add((item, id, description, equiped, type, forBattle, quantity));
+                var inventoryItem = inventory[i];
+                inventoryItem.Quantity++;
+                inventory[i] =  inventoryItem;
                 
                 if (forBattle)
                 {
-                    battleInventory.Add((item, id, description, equiped, type, forBattle, quantity));
+                    for (int j = 0; j < battleInventory.Count; j++)
+                    {
+                        if (battleInventory[j].ID == id)
+                        {
+                            var battleItem = battleInventory[j];
+                            battleItem.Quantity++;
+                            battleInventory[j] = battleItem;
+                            break;
+                        }
+                    }
                 }
+
+                return;
             }
+        }
+
+        inventory.Add((item, id, description, equiped, type, forBattle, 1));
+
+        if (forBattle)
+        {
+            battleInventory.Add((item, id, description, equiped, type, forBattle, 1));
         }
     }
 

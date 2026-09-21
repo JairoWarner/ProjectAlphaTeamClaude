@@ -48,7 +48,7 @@ public static class World
     {
         Items.Add(new Item(WEAPON_ID_RUSTY_SWORD, "Rusty sword", 5, 0, "An old sword covered in rust. Not pretty, but it still gets the job done.", false, "weapon", false, 0, false));
         Items.Add(new Item(WEAPON_ID_CLUB, "Club", 10, 0, "A thick wooden club that hits harder than it looks.", false, "weapon", false, 0, false));
-        Items.Add(new Item(ITEM_ID_HEALING_POTION, "Healing potion", 0, 5, "Good soup.", false, "healing potion", true, 0, true));
+        Items.Add(new Item(ITEM_ID_HEALING_POTION, "Healing potion", 0, 10, "Good soup.", false, "healing potion", true, 1, true));
         Items.Add(new Item(ITEM_ID_STRENGTH_POTION, "Strength potion", 0, 5, "Gooder soup.", false, "strength potion", true, 0, true));
         Items.Add(new Item(ITEM_ID_JUST_BREAD, "Just bread", 0, 0, "The developers needed an item to test whether it would stay out of the battle inventory, so now you have Just Bread. It's not disposable, it's not edible, and it refuses to leave. Congratulations, this bread is now your permanent companion.", false, "bread", false, 0, false));
     }
