@@ -3,7 +3,7 @@
 public class Player
 {
     public string Name;
-    public Health health;
+    public Health Health;
     public Item CurrentWeapon;
     public Location CurrentLocation;
     public List<Quest> ActiveQuests = new([]);
@@ -12,19 +12,19 @@ public class Player
     public Player(string name, int currenthitpoints, int maximumhitpoints)
     {
         Name = name;
-        health = new Health(currenthitpoints, maximumhitpoints);
+        Health = new Health(currenthitpoints, maximumhitpoints);
         CurrentWeapon = null;
         CurrentLocation = null;
     }
 
     public bool IfAlive()
     {
-        return health.IsAlive();
+        return Health.IsAlive();
     }
 
     public void Heal(int amount)
     {
-        health.Heal(amount);
+        Health.Heal(amount);
     }
 
     public int CalculateDamage()

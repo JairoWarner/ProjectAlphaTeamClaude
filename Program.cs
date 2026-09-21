@@ -39,7 +39,7 @@ while (playing && player.IfAlive())
     switch (choice)
     {
         case "1":
-            Console.WriteLine($"HP: {player.health.Currenthitpoints}/{player.health.Maximumhitpoints}");
+            Console.WriteLine($"HP: {player.Health.Currenthitpoints}/{player.Health.Maximumhitpoints}");
             Console.WriteLine($"Weapon: {player.CurrentWeapon.Name} ({player.CurrentWeapon.Damage} damage)");
             break;
 

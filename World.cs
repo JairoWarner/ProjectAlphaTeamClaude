@@ -3,7 +3,7 @@
 public static class World
 {
 
-    public static readonly List<Weapon> Weapons = new List<Weapon>();
+    public static readonly List<Item> Items = new List<Item>();
     public static readonly List<Monster> Monsters = new List<Monster>();
     public static readonly List<Quest> Quests = new List<Quest>();
     public static readonly List<Location> Locations = new List<Location>();
@@ -45,52 +45,11 @@ public static class World
 
     public static void PopulateItems()
     {
-        Items.Add(new Item(WEAPON_ID_RUSTY_SWORD, "Rusty sword", 5, 0, "An old sword covered in rust. Not pretty, but it still gets the job done.", false, "weapon", true
-        ));
-
-        Items.Add(new Item(
-            WEAPON_ID_CLUB,
-            "Club",
-            10,
-            0,
-            "A thick wooden club that hits harder than it looks.",
-            false,
-            "weapon",
-            true
-        ));
-
-        Items.Add(new Item(
-            ITEM_ID_HEALING_POTION,
-            "Healing potion",
-            0,
-            5,
-            "Good soup.",
-            false,
-            "potion",
-            true
-        ));
-
-        Items.Add(new Item(
-            ITEM_ID_STRENGTH_POTION,
-            "Strength potion",
-            0,
-            5,
-            "Gooder soup.",
-            false,
-            "potion",
-            true
-        ));
-
-        Items.Add(new Item(
-            ITEM_ID_JUST_BREAD,
-            "Just bread",
-            0,
-            0,
-            "The developers needed an item to test whether it would stay out of the battle inventory, so now you have Just Bread. It's not disposable, it's not edible, and it refuses to leave. Congratulations, this bread is now your permanent companion.",
-            false,
-            "bread",
-            false
-        ));
+        Items.Add(new Item(WEAPON_ID_RUSTY_SWORD, "Rusty sword", 5, 0, "An old sword covered in rust. Not pretty, but it still gets the job done.", false, "weapon", false, 0, false));
+        Items.Add(new Item(WEAPON_ID_CLUB, "Club", 10, 0, "A thick wooden club that hits harder than it looks.", false, "weapon", false, 0, false));
+        Items.Add(new Item(ITEM_ID_HEALING_POTION, "Healing potion", 0, 5, "Good soup.", false, "healing potion", true, 0, true));
+        Items.Add(new Item(ITEM_ID_STRENGTH_POTION, "Strength potion", 0, 5, "Gooder soup.", false, "strength potion", true, 0, true));
+        Items.Add(new Item(ITEM_ID_JUST_BREAD, "Just bread", 0, 0, "The developers needed an item to test whether it would stay out of the battle inventory, so now you have Just Bread. It's not disposable, it's not edible, and it refuses to leave. Congratulations, this bread is now your permanent companion.", false, "bread", false, 0, false));
     }
 
     public static void PopulateMonsters()
@@ -132,26 +91,27 @@ public static class World
 
     public static void PopulateQuests()
     {
-        Quest clearAlchemistGarden = new Quest(
-            QUEST_ID_CLEAR_ALCHEMIST_GARDEN,
-            "Clear the alchemist's garden",
-            "Kill rats in the alchemist's garden",
-            3
-        );
+        Quest clearAlchemistGarden =
+            new Quest(
+                QUEST_ID_CLEAR_ALCHEMIST_GARDEN,
+                "Clear the alchemist's garden",
+                "Kill rats in the alchemist's garden ", 3, MONSTER_ID_RAT);
 
-        Quest clearFarmersField = new Quest(
-            QUEST_ID_CLEAR_FARMERS_FIELD,
-            "Clear the farmer's field",
-            "Kill snakes in the farmer's field",
-            3
-        );
 
-        Quest clearSpidersForest = new Quest(
-            QUEST_ID_COLLECT_SPIDER_SILK,
-            "Collect spider silk",
-            "Kill spiders in the spider forest",
-            3
-        );
+
+        Quest clearFarmersField =
+            new Quest(
+                QUEST_ID_CLEAR_FARMERS_FIELD,
+                "Clear the farmer's field",
+                "Kill snakes in the farmer's field", 3, MONSTER_ID_SNAKE);
+
+
+        Quest clearSpidersForest =
+            new Quest(
+                QUEST_ID_COLLECT_SPIDER_SILK,
+                "Collect spider silk",
+                "Kill spiders in the spider forest", 3, MONSTER_ID_GIANT_SPIDER);
+
 
         Quests.Add(clearAlchemistGarden);
         Quests.Add(clearFarmersField);

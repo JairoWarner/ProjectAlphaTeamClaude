@@ -2,8 +2,8 @@
 
 public static class Inventory
 {
-    public static List<(string Name, int ID, string Description, bool Equiped, string Type, bool ForBattle)> inventory = new();
-    public static List<(string Name, int ID, string Description, bool Equiped, string Type, bool ForBattle)> battleInventory = new();
+    public static List<(string Name, int ID, string Description, bool Equiped, string Type, bool ForBattle, int Quantity)> inventory = new();
+    public static List<(string Name, int ID, string Description, bool Equiped, string Type, bool ForBattle, int Quantity)> battleInventory = new();
 
     public static void inventoryMenu()
     {
@@ -58,14 +58,29 @@ public static class Inventory
         }
     }
 
-    public static void AddItemsToInventory(string item, int id, string description, bool equiped, string type, bool forBattle)
+    public static void AddItemsToInventory(string item, int id, string description, bool equiped, string type, bool forBattle, int quantity, bool isStackable)
     {
-        inventory.Add((item, id, description, equiped, type, forBattle));
-    }
-
-    public static void AddItemsToBattleInventory(string item, int id, string description, bool equiped, string type, bool forBattle)
-    {
-        inventory.Add((item, id, description, equiped, type, forBattle));
+        foreach (var inventoryItem in inventory)
+        {
+            if (item == inventoryItem.Name)
+            {
+                if (isStackable == false)
+                    return;
+                
+                quantity += 1;
+            }
+            
+            if (item != inventoryItem.Name)
+            {
+                quantity += 1;
+                inventory.Add((item, id, description, equiped, type, forBattle, quantity));
+                
+                if (forBattle)
+                {
+                    battleInventory.Add((item, id, description, equiped, type, forBattle, quantity));
+                }
+            }
+        }
     }
 
     public static void RemoveItemFromInventory(string item)
@@ -109,6 +124,51 @@ public static class Inventory
     public static void GetInventory()
     {
         Console.Clear();
+        if (Battle.isActive == false)
+        {
+            foreach (var inventoryItem in inventory)
+            {
+                if (inventoryItem.Equiped)
+                {
+                    Console.Write($"{inventoryItem.ID}: {inventoryItem.Name} x{inventoryItem.Quantity}");
+
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write("\u001b[3mis equipped\u001b[0m");
+                    Console.ResetColor();
+
+                    Console.WriteLine();
+                }
+                else
+                {
+                    Console.WriteLine($"{inventoryItem.ID}: {inventoryItem.Name} x{inventoryItem.Quantity}");
+                }
+            }
+
+            return;
+        }
+
+        if (Battle.isActive)
+        {
+            foreach (var inventoryItem in battleInventory)
+            {
+                if (inventoryItem.Equiped)
+                {
+                    Console.Write($"{inventoryItem.ID}: {inventoryItem.Name} x{inventoryItem.Quantity}");
+
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write("\u001b[3mis equipped\u001b[0m");
+                    Console.ResetColor();
+
+                    Console.WriteLine();
+                }
+                else
+                {
+                    Console.WriteLine($"{inventoryItem.ID}: {inventoryItem.Name} x{inventoryItem.Quantity}");
+                }
+            }
+
+            return;
+        }
 
         foreach (var inventoryItem in inventory)
         {
@@ -158,6 +218,79 @@ public static class Inventory
             {
                 Console.WriteLine($"{inventoryItem.Name} is equipped");
                 return;
+            }
+        }
+    }
+
+    public static void UseItem(int itemID, Player player)
+    {
+        for (int i = 0; i < battleInventory.Count; i++)
+        {
+            if (battleInventory[i].ID == itemID)
+            {
+                Item item = World.ItemByID(itemID);
+                var inventoryItem = battleInventory[i];
+    
+                if (inventoryItem.Type == "healing potion")
+                {
+                    player.Heal(item.HealingValue);
+    
+                    Console.WriteLine($"You used {item.Name}.");
+                    Console.WriteLine($"You healed {item.HealingValue} HP.");
+                    Console.WriteLine($"Current HP: {player.Health.Currenthitpoints}/{player.Health.Maximumhitpoints}");
+    
+                    inventoryItem.Quantity--;
+    
+                    if (inventoryItem.Quantity <= 0)
+                    {
+                        battleInventory.RemoveAt(i);
+    
+                        for (int j = 0; j < inventory.Count; j++)
+                        {
+                            if (inventory[j].ID == itemID)
+                            {
+                                inventory.RemoveAt(j);
+                                break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        battleInventory[i] = inventoryItem;
+                    }
+    
+                    return;
+                }
+    
+                if (inventoryItem.Type == "strength potion")
+                {
+                    player.CurrentWeapon.Damage += item.HealingValue;
+    
+                    Console.WriteLine($"You used {item.Name}.");
+                    Console.WriteLine($"Your attack damage increased by {item.HealingValue}.");
+    
+                    inventoryItem.Quantity--;
+    
+                    if (inventoryItem.Quantity <= 0)
+                    {
+                        battleInventory.RemoveAt(i);
+    
+                        for (int j = 0; j < inventory.Count; j++)
+                        {
+                            if (inventory[j].ID == itemID)
+                            {
+                                inventory.RemoveAt(j);
+                                break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        battleInventory[i] = inventoryItem;
+                    }
+    
+                    return;
+                }
             }
         }
     }
