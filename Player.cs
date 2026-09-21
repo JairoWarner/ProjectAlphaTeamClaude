@@ -78,6 +78,10 @@ public class Player
                     {
                         Console.WriteLine("Unfortunately there is no location to your East.");
                     }
+                    else if (CurrentLocation.LocationToEast.Name == "Bridge" && CompletedQuests.Count < 2)
+                    {
+                        Console.WriteLine("You can not go east! Go complete some quests.");
+                    }
                     else
                     {
                         Console.WriteLine($"You're planning to go East, towards {CurrentLocation.LocationToEast.Name}. Are you sure? (Y/N)");
