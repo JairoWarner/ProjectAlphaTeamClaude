@@ -1,3 +1,4 @@
+using ConsoleApp4;
 public class Quest
 {
     public int ID;
@@ -30,6 +31,7 @@ public class Quest
         if (CurrentKills >= RequiredKills)
         {
             iscompleted = true;
+            GiveReward();
         }
     }
 
