@@ -106,7 +106,8 @@ public class Location
             Inventory.AddItemsToInventory(rustySword.Name, rustySword.ID, rustySword.Description, rustySword.Equipped, rustySword.Type, rustySword.ForBattle, rustySword.Quantity, rustySword.IsStackable, rustySword.Damage);
             Inventory.AddItemsToInventory(bread.Name, bread.ID, bread.Description, bread.Equipped, bread.Type, bread.ForBattle, bread.Quantity, bread.IsStackable,  bread.Damage);
 
-            Console.WriteLine($"\nOn your way to Town square you found a \u001b[93m{rustySword.Name}\u001b[0m");
+            Console.WriteLine($"\nOn your way, you spot something on the ground...");
+            Console.WriteLine($"You found a {rustySword.Name}");
 
             GUI.PressEnter();
         }

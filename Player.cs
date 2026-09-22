@@ -52,7 +52,7 @@ public class Player
         while (moving == false && moving_to != "Q")
         {
             Console.ForegroundColor = ConsoleColor.Gray;
-            Console.WriteLine("Which direction would you like to head in? [0m to stay where you are.)");
+            Console.WriteLine("Which direction would you like to head in? \u001b[31mQ\u001b[0m to stay where you are.)");
             Console.WriteLine("\n\u001b[93m[N] North   [E] East\n" +
                               "[S] South   [W] West\u001b[0m " +
                               "\n\u001b[91m[Q] to stay here\u001b");
@@ -78,8 +78,7 @@ public class Player
 
                         if (confirmation == "Y")
                         {
-                            Console.WriteLine(
-                                $"You embark upon your path to \u001b[93m{CurrentLocation.LocationToNorth.Name}\u001b[0m");
+                            Console.WriteLine($"You set off toward Town \u001b[93m{CurrentLocation.LocationToNorth.Name}\u001b[0m");
                             CurrentLocation = CurrentLocation.LocationToNorth;
                             moving = true;
                         }
@@ -109,7 +108,7 @@ public class Player
 
                         if (confirmation == "Y")
                         {
-                            Console.WriteLine($"You embark upon your path to {CurrentLocation.LocationToEast.Name}");
+                            Console.WriteLine($"You set off toward {CurrentLocation.LocationToEast.Name}\n");
                             CurrentLocation = CurrentLocation.LocationToEast;
                             moving = true;
                         }
@@ -119,7 +118,7 @@ public class Player
                         }
                     }
 
-                    Console.WriteLine($"Your current location is: {CurrentLocation.Name}");
+                    Console.WriteLine($"\nYou arrive at: {CurrentLocation.Name}");
                     break;
 
                 case "S":

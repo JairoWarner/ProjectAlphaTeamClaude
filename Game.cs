@@ -27,8 +27,7 @@ public class Game
 
         if (playerName == "Lisa")
         {
-            Item lisaAbliterator =
-                World.ItemByID(World.ITEM_ID_LISA_ABLITERATOR);
+            Item lisaAbliterator = World.ItemByID(World.ITEM_ID_LISA_ABLITERATOR);
 
             Inventory.AddItemsToInventory(lisaAbliterator.Name, lisaAbliterator.ID, lisaAbliterator.Description, lisaAbliterator.Equipped, lisaAbliterator.Type, lisaAbliterator.ForBattle, lisaAbliterator.Quantity, lisaAbliterator.IsStackable, lisaAbliterator.Damage);
 
@@ -208,7 +207,6 @@ public class Game
     private void MovePlayer()
     {
         player.MoveLocations();
-
         player.CurrentLocation.TownSquare(player);
     }
 
