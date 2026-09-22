@@ -111,7 +111,7 @@ public class Game
                 break;
 
             case "4":
-                Inventory.inventoryMenu();
+                Inventory.inventoryMenu(player);
                 break;
 
             case "5":

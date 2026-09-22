@@ -9,7 +9,15 @@ public class Monster
     public string Special;
     public int SpecialChance;
 
-    public Monster(int id, string name, int maximumdamage, int currenthitpoints, int maximumhitpoints, string special, int specialchance)
+    public Monster(
+        int id,
+        string name,
+        int maximumdamage,
+        int currenthitpoints,
+        int maximumhitpoints,
+        string special,
+        int specialchance
+    )
     {
         ID = id;
         Name = name;

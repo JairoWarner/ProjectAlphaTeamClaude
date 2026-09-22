@@ -6,7 +6,7 @@ public class Player
 {
     public string Name;
     public Health Health;
-    public Item CurrentWeapon;
+    public Item? CurrentWeapon;
     public Location CurrentLocation;
     public List<Quest> ActiveQuests = new([]);
     public List<Quest> CompletedQuests = new([]);
@@ -31,6 +31,11 @@ public class Player
 
     public int CalculateDamage()
     {
+        if (CurrentWeapon == null)
+        {
+            return 2;
+        }
+        
         return World.RandomGenerator.Next(0, CurrentWeapon.Damage + 1);
     }
 

@@ -5,7 +5,7 @@ public static class Inventory
     public static List<(string Name, int ID, string Description, bool Equiped, string Type, bool ForBattle, int Quantity, int Damage)> inventory = new();
     public static List<(string Name, int ID, string Description, bool Equiped, string Type, bool ForBattle, int Quantity, int Damage)> battleInventory = new();
 
-    public static void inventoryMenu()
+    public static void inventoryMenu(Player player)
     {
         Console.Clear();
         Console.WriteLine("1: View inventory");
@@ -49,7 +49,7 @@ public static class Inventory
             Console.WriteLine("Type the weapon ID that you want to Equip:");
             int weaponID = int.Parse(Console.ReadLine());
 
-            EquipWeapon(weaponID);
+            EquipWeapon(weaponID, player);
         }
 
         if (choice == "5")
@@ -207,10 +207,12 @@ public static class Inventory
         }
     }
 
-    public static void EquipWeapon(int item)
+    public static void EquipWeapon(int item, Player player)
     {
         Console.Clear();
 
+        player.CurrentWeapon = null;
+        
         for (int i = 0; i < inventory.Count; i++)
         {
             if (inventory[i].Type == "weapon")
@@ -220,6 +222,7 @@ public static class Inventory
                 if (inventory[i].ID == item)
                 {
                     inventoryItem.Equiped = true;
+                    player.CurrentWeapon = World.ItemByID(inventory[i].ID);
                 }
                 else
                 {
@@ -248,65 +251,16 @@ public static class Inventory
             {
                 Item item = World.ItemByID(itemID);
                 var inventoryItem = battleInventory[i];
-    
+
                 if (inventoryItem.Type == "healing potion")
                 {
-                    player.Heal(item.HealingValue);
-    
-                    Console.WriteLine($"You used {item.Name}.");
-                    Console.WriteLine($"You healed {item.HealingValue} HP.");
-                    Console.WriteLine($"Current HP: {player.Health.Currenthitpoints}/{player.Health.Maximumhitpoints}");
-    
-                    inventoryItem.Quantity--;
-    
-                    if (inventoryItem.Quantity <= 0)
-                    {
-                        battleInventory.RemoveAt(i);
-    
-                        for (int j = 0; j < inventory.Count; j++)
-                        {
-                            if (inventory[j].ID == itemID)
-                            {
-                                inventory.RemoveAt(j);
-                                break;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        battleInventory[i] = inventoryItem;
-                    }
-    
+                    item.UseHealingPotion(player, i);
                     return;
                 }
-    
+
                 if (inventoryItem.Type == "strength potion")
                 {
-                    player.CurrentWeapon.Damage += item.HealingValue;
-    
-                    Console.WriteLine($"You used {item.Name}.");
-                    Console.WriteLine($"Your attack damage increased by {item.HealingValue}.");
-    
-                    inventoryItem.Quantity--;
-    
-                    if (inventoryItem.Quantity <= 0)
-                    {
-                        battleInventory.RemoveAt(i);
-    
-                        for (int j = 0; j < inventory.Count; j++)
-                        {
-                            if (inventory[j].ID == itemID)
-                            {
-                                inventory.RemoveAt(j);
-                                break;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        battleInventory[i] = inventoryItem;
-                    }
-    
+                    item.UseStrengthPotion(player, i);
                     return;
                 }
             }
