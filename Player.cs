@@ -40,11 +40,16 @@ public class Player
 
         CurrentLocation.ShowMap();
         Console.WriteLine();
-        Console.WriteLine($"You are currently at {CurrentLocation.Name}");
+        Console.WriteLine($"\u001b[33mYou are at: {CurrentLocation.Name}\u001b[0m");
 
         while (moving == false && moving_to != "Q")
         {
-            Console.WriteLine("Which direction would you like to head in? (N/E/S/W) (Q to stay where you are.)");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.WriteLine("Which direction would you like to head in? [0m to stay where you are.)");
+            Console.WriteLine("\n\u001b[93m[N] North   [E] East\n" +
+                              "[S] South   [W] West\u001b[0m " +
+                              "\n\u001b[91m[Q] to stay here\u001b");
+            Console.ResetColor();
             moving_to = Console.ReadLine().ToUpper();
 
             switch (moving_to)

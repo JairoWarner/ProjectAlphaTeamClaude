@@ -33,6 +33,7 @@ while (DateTime.Now < endTime)
 
 
 bool playing = true;
+int count = 0;
 
 while (playing && player.IfAlive())
 {
@@ -57,7 +58,7 @@ while (playing && player.IfAlive())
     Console.Write("> ");
 
     string? choice = Console.ReadLine();
-
+    
     switch (choice)
     {
         case "1":
@@ -121,9 +122,17 @@ while (playing && player.IfAlive())
 
         case "5":
             Console.WriteLine();
+            if (count == 3)
+            {
+                Console.WriteLine("Are you stupid?");
+                Thread.Sleep(2000);
+                break;
+            }
             if (player.CurrentLocation.NPCHere == null)
             {
+                count++;
                 Console.WriteLine("There is no one here to talk to!");
+                Thread.Sleep(2000);
             }
             else
             {
