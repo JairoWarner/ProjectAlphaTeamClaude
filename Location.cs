@@ -5,25 +5,37 @@ public class Location
     public int ID;
     public string Name;
     public string Description;
+
     public Location LocationToNorth;
     public Location LocationToEast;
     public Location LocationToSouth;
     public Location LocationToWest;
+
     public Quest QuestAvailableHere;
     public Monster MonsterLivingHere;
     public NPC? NPCHere;
 
-    public Location(int id, string name, string description, Location north, Location east, Location south,
-        Location west)
+
+    public Location(
+        int id,
+        string name,
+        string description,
+        Location north,
+        Location east,
+        Location south,
+        Location west
+    )
     {
         ID = id;
         Name = name;
         Description = description;
+
         LocationToNorth = north;
         LocationToEast = east;
         LocationToSouth = south;
         LocationToWest = west;
     }
+
 
     public void ShowMap()
     {
@@ -35,7 +47,6 @@ public class Location
         string cyan = "\u001b[96m";
         string green = "\u001b[92m";
         string yellow = "\u001b[93m";
-        string darkGray = "\u001b[90m";
 
         string Point(string letter, int locationID)
         {
@@ -47,17 +58,57 @@ public class Location
             return $"{green}[{letter}]{gray}";
         }
 
-        string garden = Point("P", World.LOCATION_ID_ALCHEMISTS_GARDEN);
-        string alchemist = Point("A", World.LOCATION_ID_ALCHEMIST_HUT);
-        string field = Point("V", World.LOCATION_ID_FARM_FIELD);
-        string farmhouse = Point("F", World.LOCATION_ID_FARMHOUSE);
-        string town = Point("T", World.LOCATION_ID_TOWN_SQUARE);
-        string guard = Point("G", World.LOCATION_ID_GUARD_POST);
-        string bridge = Point("B", World.LOCATION_ID_BRIDGE);
-        string forest = Point("S", World.LOCATION_ID_SPIDER_FIELD);
-        string home = Point("H", World.LOCATION_ID_HOME);
-        string shop = Point("S", World.LOCATION_ID_SHOP);
-        
+        string garden = Point(
+            "P",
+            World.LOCATION_ID_ALCHEMISTS_GARDEN
+        );
+
+        string alchemist = Point(
+            "A",
+            World.LOCATION_ID_ALCHEMIST_HUT
+        );
+
+        string field = Point(
+            "V",
+            World.LOCATION_ID_FARM_FIELD
+        );
+
+        string farmhouse = Point(
+            "F",
+            World.LOCATION_ID_FARMHOUSE
+        );
+
+        string town = Point(
+            "T",
+            World.LOCATION_ID_TOWN_SQUARE
+        );
+
+        string guard = Point(
+            "G",
+            World.LOCATION_ID_GUARD_POST
+        );
+
+        string bridge = Point(
+            "B",
+            World.LOCATION_ID_BRIDGE
+        );
+
+        string forest = Point(
+            "S",
+            World.LOCATION_ID_SPIDER_FIELD
+        );
+
+        string home = Point(
+            "H",
+            World.LOCATION_ID_HOME
+        );
+
+        string shop = Point(
+            "S",
+            World.LOCATION_ID_SHOP
+        );
+
+
         Console.WriteLine($@"{cyan}
     ╔═══════════════════════════════════════════════════════════════════════════════════════════╗
     ║                                         WORLD MAP                                         ║
@@ -94,22 +145,121 @@ public class Location
 ");
     }
 
+
+    public void EnterLocation(Player player)
+    {
+        switch (ID)
+        {
+            case World.LOCATION_ID_TOWN_SQUARE:
+                TownSquare(player);
+                break;
+
+            case World.LOCATION_ID_ALCHEMIST_HUT:
+                AlchemistHut(player);
+                break;
+        }
+    }
+
+
     public void TownSquare(Player player)
     {
         if (ID == World.LOCATION_ID_TOWN_SQUARE)
         {
-            Item rustySword = World.ItemByID(World.WEAPON_ID_RUSTY_SWORD);
-            Item club = World.ItemByID(World.WEAPON_ID_CLUB);
-            Item healingPotion = World.ItemByID(World.ITEM_ID_HEALING_POTION);
-            Item bread = World.ItemByID(World.ITEM_ID_JUST_BREAD);
+            Item rustySword =
+                World.ItemByID(World.WEAPON_ID_RUSTY_SWORD);
 
-            Inventory.AddItemsToInventory(rustySword.Name, rustySword.ID, rustySword.Description, rustySword.Equipped, rustySword.Type, rustySword.ForBattle, rustySword.Quantity, rustySword.IsStackable, rustySword.Damage);
-            Inventory.AddItemsToInventory(bread.Name, bread.ID, bread.Description, bread.Equipped, bread.Type, bread.ForBattle, bread.Quantity, bread.IsStackable,  bread.Damage);
+            Item bread =
+                World.ItemByID(World.ITEM_ID_JUST_BREAD);
 
-            Console.WriteLine($"\nOn your way, you spot something on the ground...");
-            Console.WriteLine($"You found a {rustySword.Name}");
 
-            GUI.PressEnter();
+            Inventory.AddItemsToInventory(
+                rustySword.Name,
+                rustySword.ID,
+                rustySword.Description,
+                rustySword.Equipped,
+                rustySword.Type,
+                rustySword.ForBattle,
+                rustySword.Quantity,
+                rustySword.IsStackable,
+                rustySword.Damage
+            );
+
+
+            Inventory.AddItemsToInventory(
+                bread.Name,
+                bread.ID,
+                bread.Description,
+                bread.Equipped,
+                bread.Type,
+                bread.ForBattle,
+                bread.Quantity,
+                bread.IsStackable,
+                bread.Damage
+            );
+
+
+            Console.WriteLine(
+                "\nOn your way, you spot something on the ground..."
+            );
+
+            GUI.CWLine(
+                $"You found a {rustySword.Name}!",
+                ConsoleColor.Yellow
+            );
+        }
+    }
+
+
+    public void AlchemistHut(Player player)
+    {
+        if (ID == World.LOCATION_ID_ALCHEMIST_HUT)
+        {
+            Item healingPotion =
+                World.ItemByID(World.ITEM_ID_HEALING_POTION);
+
+            Item strengthPotion =
+                World.ItemByID(World.ITEM_ID_STRENGTH_POTION);
+
+
+            Inventory.AddItemsToInventory(
+                healingPotion.Name,
+                healingPotion.ID,
+                healingPotion.Description,
+                healingPotion.Equipped,
+                healingPotion.Type,
+                healingPotion.ForBattle,
+                healingPotion.Quantity,
+                healingPotion.IsStackable,
+                healingPotion.Damage
+            );
+
+
+            Inventory.AddItemsToInventory(
+                strengthPotion.Name,
+                strengthPotion.ID,
+                strengthPotion.Description,
+                strengthPotion.Equipped,
+                strengthPotion.Type,
+                strengthPotion.ForBattle,
+                strengthPotion.Quantity,
+                strengthPotion.IsStackable,
+                strengthPotion.Damage
+            );
+
+
+            Console.WriteLine(
+                "\nAs you enter the hut, you notice a few unattended potions..."
+            );
+
+            GUI.CWLine(
+                $"You found a {healingPotion.Name}!",
+                ConsoleColor.Green
+            );
+
+            GUI.CWLine(
+                $"You found a {strengthPotion.Name}!",
+                ConsoleColor.Red
+            );
         }
     }
 }

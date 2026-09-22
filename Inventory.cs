@@ -8,13 +8,28 @@ public static class Inventory
     public static void inventoryMenu(Player player)
     {
         Console.Clear();
-        Console.WriteLine("1: View inventory");
-        Console.WriteLine("2: Remove item");
-        Console.WriteLine("3: Check description");
-        Console.WriteLine("4: Equip weapon");
-        Console.WriteLine("5: Go back");
 
-        string choice = Console.ReadLine();
+        GUI.CWLine("INVENTORY", ConsoleColor.Yellow);
+        Console.WriteLine();
+
+        GUI.CWLine("[1] View inventory", ConsoleColor.Green);
+        GUI.CWLine("[2] Remove item", ConsoleColor.Green);
+        GUI.CWLine("[3] Check description", ConsoleColor.Green);
+        GUI.CWLine("[4] Equip weapon", ConsoleColor.Green);
+        GUI.CWLine("[Q] Go back", ConsoleColor.Red);
+
+        string choice = "";
+
+        while (choice != "1" && choice != "2" && choice != "3" && choice != "4" && choice.ToUpper() != "Q")
+        {
+            Console.Write("\nChoice: ");
+            choice = Console.ReadLine();
+
+            if (choice != "1" && choice != "2" && choice != "3" && choice != "4" && choice.ToUpper() != "Q")
+            {
+                Console.WriteLine("Please enter 1, 2, 3, 4 or Q.");
+            }
+        }
 
         if (choice == "1")
         {
@@ -26,8 +41,15 @@ public static class Inventory
         if (choice == "2")
         {
             GetInventory();
-            Console.WriteLine("What item would you like to remove?");
-            int removeItem = int.Parse(Console.ReadLine());
+
+            string input = GetValidInput("What item would you like to remove?");
+
+            if (input.ToUpper() == "Q")
+            {
+                return;
+            }
+
+            int removeItem = int.Parse(input);
 
             RemoveItemFromInventory(removeItem);
         }
@@ -36,8 +58,14 @@ public static class Inventory
         {
             GetInventory();
 
-            Console.WriteLine("Type an item ID to see its description:");
-            int itemID = int.Parse(Console.ReadLine());
+            string input = GetValidInput("Type an item ID to see its description:");
+
+            if (input.ToUpper() == "Q")
+            {
+                return;
+            }
+
+            int itemID = int.Parse(input);
 
             CheckDescription(itemID);
         }
@@ -46,15 +74,47 @@ public static class Inventory
         {
             GetInventory();
 
-            Console.WriteLine("Type the weapon ID that you want to Equip:");
-            int weaponID = int.Parse(Console.ReadLine());
+            string input = GetValidInput("Type the weapon ID that you want to equip:");
+
+            if (input.ToUpper() == "Q")
+            {
+                return;
+            }
+
+            int weaponID = int.Parse(input);
 
             EquipWeapon(weaponID, player);
         }
 
-        if (choice == "5")
+        if (choice.ToUpper() == "Q")
         {
             return;
+        }
+    }
+
+    private static string GetValidInput(string message)
+    {
+        while (true)
+        {
+            Console.WriteLine();
+            Console.WriteLine(message);
+            GUI.CWLine("[Q] Go back", ConsoleColor.Red);
+            Console.Write("\nChoice: ");
+
+            string input = Console.ReadLine();
+
+            if (input.ToUpper() == "Q")
+            {
+                return input;
+            }
+
+            if (int.TryParse(input, out int number))
+            {
+                return input;
+            }
+
+            Console.Clear();
+            Console.WriteLine("Please enter a valid item ID or Q to go back.");
         }
     }
 
@@ -62,15 +122,15 @@ public static class Inventory
     {
         for (int i = 0; i < inventory.Count; i++)
         {
-            if (inventory[i].ID  == id)
+            if (inventory[i].ID == id)
             {
                 if (!isStackable)
                     return;
-                
+
                 var inventoryItem = inventory[i];
                 inventoryItem.Quantity++;
-                inventory[i] =  inventoryItem;
-                
+                inventory[i] = inventoryItem;
+
                 if (forBattle)
                 {
                     for (int j = 0; j < battleInventory.Count; j++)
@@ -88,7 +148,7 @@ public static class Inventory
                 return;
             }
         }
-        
+
         inventory.Add((item, id, description, equiped, type, forBattle, 1, damage));
 
         if (forBattle)
@@ -100,7 +160,8 @@ public static class Inventory
     public static void RemoveItemFromInventory(int itemID)
     {
         int counter = 0;
-        for (int i = 0;  i < inventory.Count; i++)
+
+        for (int i = 0; i < inventory.Count; i++)
         {
             if (inventory[i].ID == 5)
             {
@@ -112,6 +173,7 @@ public static class Inventory
                     Console.Clear();
                 }
             }
+
             if (inventory[i].ID == itemID)
             {
                 inventory.Remove(inventory[i]);
@@ -128,9 +190,15 @@ public static class Inventory
         {
             if (inventoryItem.ID == item)
             {
+                Console.Clear();
+
+                GUI.CWLine(inventoryItem.Name, ConsoleColor.Yellow);
+                Console.WriteLine();
+
                 if (inventoryItem.ForBattle)
                 {
-                    Console.WriteLine($"{inventoryItem.Description} This item can be used in battle!");
+                    Console.WriteLine($"{inventoryItem.Description}");
+                    GUI.CWLine("This item can be used in battle!", ConsoleColor.Green);
                 }
                 else
                 {
@@ -148,8 +216,18 @@ public static class Inventory
     public static void GetInventory()
     {
         Console.Clear();
+
+        GUI.CWLine("INVENTORY", ConsoleColor.Yellow);
+        Console.WriteLine();
+
         if (Battle.isActive == false)
         {
+            if (inventory.Count == 0)
+            {
+                GUI.CWLine("Your inventory is empty.", ConsoleColor.DarkGray);
+                return;
+            }
+
             foreach (var inventoryItem in inventory)
             {
                 if (inventoryItem.Equiped)
@@ -171,12 +249,18 @@ public static class Inventory
 
         if (Battle.isActive)
         {
+            if (battleInventory.Count == 0)
+            {
+                GUI.CWLine("You have no battle items.", ConsoleColor.DarkGray);
+                return;
+            }
+
             foreach (var inventoryItem in battleInventory)
             {
                 if (inventoryItem.Equiped)
                 {
                     Console.Write($"{inventoryItem.ID}: {inventoryItem.Name} x{inventoryItem.Quantity}");
-                    
+
                     GUI.CWLine(" - is equipped", ConsoleColor.Green);
 
                     Console.WriteLine();
@@ -212,7 +296,7 @@ public static class Inventory
         Console.Clear();
 
         player.CurrentWeapon = null;
-        
+
         for (int i = 0; i < inventory.Count; i++)
         {
             if (inventory[i].Type == "weapon")
@@ -237,10 +321,12 @@ public static class Inventory
         {
             if (inventoryItem.Equiped)
             {
-                Console.WriteLine($"{inventoryItem.Name} is equipped");
+                GUI.CWLine($"{inventoryItem.Name} is equipped.", ConsoleColor.Green);
                 return;
             }
         }
+
+        Console.WriteLine("You don't own a weapon with that ID.");
     }
 
     public static void UseItem(int itemID, Player player)

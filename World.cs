@@ -48,7 +48,7 @@ public static class World
 
     public static void PopulateItems()
     {
-        Items.Add(new Item(WEAPON_ID_RUSTY_SWORD, "Rusty sword", 5, 0, "An old sword covered in rust. Not pretty, but it still gets the job done.", false, "weapon", false, 0, false));
+        Items.Add(new Item(WEAPON_ID_RUSTY_SWORD, "Rusty sword", 6, 0, "An old sword covered in rust. Not pretty, but it still gets the job done.", false, "weapon", false, 0, false));
         Items.Add(new Item(WEAPON_ID_CLUB, "Club", 10, 0, "A thick wooden club that hits harder than it looks.", false, "weapon", false, 0, false));
         Items.Add(new Item(ITEM_ID_HEALING_POTION, "Healing potion", 0, 10, "Good soup.", false, "healing potion", true, 1, true));
         Items.Add(new Item(ITEM_ID_STRENGTH_POTION, "Strength potion", 0, 5, "Gooder soup.", false, "strength potion", true, 0, true));

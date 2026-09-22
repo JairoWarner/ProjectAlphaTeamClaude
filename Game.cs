@@ -31,7 +31,12 @@ public class Game
 
             Inventory.AddItemsToInventory(lisaAbliterator.Name, lisaAbliterator.ID, lisaAbliterator.Description, lisaAbliterator.Equipped, lisaAbliterator.Type, lisaAbliterator.ForBattle, lisaAbliterator.Quantity, lisaAbliterator.IsStackable, lisaAbliterator.Damage);
 
-            player.NameLisa();
+            foreach (string text in BreadStorys.Lisa)
+            {
+                Console.Clear();
+                Console.WriteLine(text);
+                Console.ReadLine();
+            }
         }
     }
 
@@ -158,7 +163,7 @@ public class Game
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.Write($"{Inventory.inventory[i].Name} ");
                 Console.ResetColor();
-                Console.Write($"\u001b[91m+{Inventory.inventory[i].Damage} Attack\u001b[0m\n");
+                Console.Write($"\u001b[91m+{Inventory.inventory[i].Damage - 1} Attack\u001b[0m\n");
             }
 
             break;
@@ -167,9 +172,7 @@ public class Game
 
         if (!weaponEquiped)
         {
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.Write("no current weapon\n");
-            Console.ResetColor();
+            GUI.CWLine($"No weapon equiped", ConsoleColor.White);
         }
 
         GUI.CWLine("\nActive Quest", ConsoleColor.DarkGray);
@@ -206,8 +209,21 @@ public class Game
 
     private void MovePlayer()
     {
-        player.MoveLocations();
-        player.CurrentLocation.TownSquare(player);
+        bool hasMoved = player.MoveLocations();
+
+        if (!hasMoved)
+        {
+            GUI.PressEnter();
+            return;
+        }
+
+        player.CurrentLocation.EnterLocation(player);
+
+        Console.WriteLine();
+
+        Console.WriteLine($"You have arrived at {player.CurrentLocation.Name}.");
+
+        GUI.PressEnter();
     }
 
 
@@ -316,9 +332,7 @@ public class Game
         }
         else
         {
-            Console.WriteLine(
-                "You have not completed enough quests to pass!"
-            );
+            Console.WriteLine("You have not completed enough quests to pass!");
         }
     }
 
@@ -327,9 +341,7 @@ public class Game
     {
         if (player.CompletedQuests.Contains(npc.QuestToGive))
         {
-            Console.WriteLine(
-                "You have already completed this quest!"
-            );
+            Console.WriteLine("You have already completed this quest!");
         }
         else if (!player.ActiveQuests.Contains(npc.QuestToGive))
         {
@@ -337,26 +349,25 @@ public class Game
         }
         else
         {
-            Console.WriteLine(
-                "This quest is already active!"
-            );
+            Console.WriteLine("This quest is already active!");
         }
     }
 
 
     private void OfferQuest(NPC npc)
     {
-        Console.WriteLine(
-            $"You have received a new quest: {npc.QuestToGive.Name}"
-        );
+        if (npc.Name == "Farmer")
+        foreach (string text in BreadStorys.farmerStory)
+        {
+            Console.Clear();
+            Console.WriteLine(text);
+            Console.ReadLine();
+        }
+        Console.WriteLine($"You have received a new quest: {npc.QuestToGive.Name}");
 
-        Console.WriteLine(
-            npc.QuestToGive.Description
-        );
+        Console.WriteLine(npc.QuestToGive.Description);
 
-        Console.WriteLine(
-            "\nDo you want to accept the quest? (Y/N)"
-        );
+        Console.WriteLine("\nDo you want to accept the quest? (Y/N)");
 
         string questChoice = " ";
 
@@ -384,15 +395,11 @@ public class Game
             player.ActiveQuests.Count >= 1
         )
         {
-            Console.WriteLine(
-                "You already have an active quest!"
-            );
+            Console.WriteLine("You already have an active quest!");
         }
         else
         {
-            Console.WriteLine(
-                "You have denied the quest."
-            );
+            Console.WriteLine("You have denied the quest.");
         }
     }
 
@@ -401,9 +408,7 @@ public class Game
     {
         if (!player.IfAlive())
         {
-            Console.WriteLine(
-                "\nGame over — you have died."
-            );
+            Console.WriteLine("\nGame over — you have died.");
         }
     }
 }

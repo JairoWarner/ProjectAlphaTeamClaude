@@ -2,6 +2,32 @@
 
 public class BreadStorys
 {
+    public static List<string> Lisa = new List<string>
+    {
+        "Wow...",
+        "Lisa...",
+        "What a beautiful name.",
+        "I'm in shock.",
+        "I never heard such a beautiful name before.",
+        "A name like that deserves something special.",
+        "So here, take my secret weapon.",
+        "I only give this to people with exceptionally good names...",
+        "You abtained \u001b[33mThe legendary Lisa Abliterator\u001b[0m",
+        "Use it wisely.",
+        "Or not i don't really care."
+    };
+    
+    public static List<string> farmerStory = new List<string>
+    {
+        "Farmer: Finally, someone who looks capable!",
+        "Farmer: My field has been overrun by snakes.",
+        "Farmer: They are hiding between the crops and scaring away anyone who tries to work there.",
+        "Farmer: If this keeps going, I will lose the entire harvest.",
+        "Farmer: I have tried chasing them away myself, but they just keep coming back.",
+        "Farmer: If you can kill 3 snakes in my field, I would be very grateful.",
+        "Farmer: So... what do you say? Will you help me?"
+    };
+    
     public static List<string> breadStory1 = new List<string>
     {
         "So you read the description and still tried to delete me, huh?",
