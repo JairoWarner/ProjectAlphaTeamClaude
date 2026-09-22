@@ -24,8 +24,17 @@ public class Game
         player = new Player(playerName, 30, 30);
 
         player.CurrentLocation = World.LocationByID(World.LOCATION_ID_HOME);
-    }
 
+        if (playerName == "Lisa")
+        {
+            Item lisaAbliterator =
+                World.ItemByID(World.ITEM_ID_LISA_ABLITERATOR);
+
+            Inventory.AddItemsToInventory(lisaAbliterator.Name, lisaAbliterator.ID, lisaAbliterator.Description, lisaAbliterator.Equipped, lisaAbliterator.Type, lisaAbliterator.ForBattle, lisaAbliterator.Quantity, lisaAbliterator.IsStackable, lisaAbliterator.Damage);
+
+            player.NameLisa();
+        }
+    }
 
     private void GenerateWorld()
     {
@@ -146,7 +155,7 @@ public class Game
             if (Inventory.inventory[i].Equiped)
             {
                 weaponEquiped = true;
-                
+
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.Write($"{Inventory.inventory[i].Name} ");
                 Console.ResetColor();

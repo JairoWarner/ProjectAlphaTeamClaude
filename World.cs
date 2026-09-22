@@ -16,6 +16,7 @@ public static class World
     public const int ITEM_ID_STRENGTH_POTION = 4;
     public const int ITEM_ID_JUST_BREAD = 5;
     public const int ITEM_ID_GOLDEN_APPLE = 6;
+    public const int ITEM_ID_LISA_ABLITERATOR = 7;
 
     public const int MONSTER_ID_RAT = 1;
     public const int MONSTER_ID_SNAKE = 2;
@@ -53,6 +54,7 @@ public static class World
         Items.Add(new Item(ITEM_ID_STRENGTH_POTION, "Strength potion", 0, 5, "Gooder soup.", false, "strength potion", true, 0, true));
         Items.Add(new Item(ITEM_ID_GOLDEN_APPLE, "Golden apple", 0, 20, "A shiny golden apple that restores a lot of health.", false, "healing food", true, 0, true));
         Items.Add(new Item(ITEM_ID_JUST_BREAD, "Just bread", 0, 0, "The developers needed an item to test whether it would stay out of the battle inventory, so now you have Just Bread. It's not disposable, it's not edible, and it refuses to leave. Congratulations, this bread is now your permanent companion.", false, "bread", false, 0, false));
+        Items.Add(new Item(ITEM_ID_LISA_ABLITERATOR, "Lisa Abliterator", 10000, 0, "only for those who are named Lisa", false, "weapon", false, 0, false));
     }
 
     public static void PopulateMonsters()

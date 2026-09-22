@@ -35,7 +35,7 @@ public class Player
         {
             return 2;
         }
-        
+
         return World.RandomGenerator.Next(0, CurrentWeapon.Damage + 1);
     }
 
@@ -69,7 +69,8 @@ public class Player
                     else
                     {
                         Console.Clear();
-                        Console.WriteLine($"You're planning to go North, towards {CurrentLocation.LocationToNorth.Name}. Are you sure?\n");
+                        Console.WriteLine(
+                            $"You're planning to go North, towards {CurrentLocation.LocationToNorth.Name}. Are you sure?\n");
                         GUI.CWLine($"[Y] Go {CurrentLocation.LocationToNorth.Name}", ConsoleColor.Green);
                         GUI.CWLine($"[N] Stay at {CurrentLocation.Name}", ConsoleColor.Red);
                         Console.Write("\nChoice: ");
@@ -77,7 +78,8 @@ public class Player
 
                         if (confirmation == "Y")
                         {
-                            Console.WriteLine($"You embark upon your path to \u001b[93m{CurrentLocation.LocationToNorth.Name}\u001b[0m");
+                            Console.WriteLine(
+                                $"You embark upon your path to \u001b[93m{CurrentLocation.LocationToNorth.Name}\u001b[0m");
                             CurrentLocation = CurrentLocation.LocationToNorth;
                             moving = true;
                         }
@@ -101,7 +103,8 @@ public class Player
                     }
                     else
                     {
-                        Console.WriteLine($"You're planning to go East, towards {CurrentLocation.LocationToEast.Name}. Are you sure? (Y/N)");
+                        Console.WriteLine(
+                            $"You're planning to go East, towards {CurrentLocation.LocationToEast.Name}. Are you sure? (Y/N)");
                         confirmation = Console.ReadLine().ToUpper();
 
                         if (confirmation == "Y")
@@ -126,7 +129,8 @@ public class Player
                     }
                     else
                     {
-                        Console.WriteLine($"You're planning to go South, towards {CurrentLocation.LocationToSouth.Name}. Are you sure? (Y/N)");
+                        Console.WriteLine(
+                            $"You're planning to go South, towards {CurrentLocation.LocationToSouth.Name}. Are you sure? (Y/N)");
                         confirmation = Console.ReadLine().ToUpper();
 
                         if (confirmation == "Y")
@@ -151,7 +155,8 @@ public class Player
                     }
                     else
                     {
-                        Console.WriteLine($"You're planning to go West, towards {CurrentLocation.LocationToWest.Name}. Are you sure? (Y/N)");
+                        Console.WriteLine(
+                            $"You're planning to go West, towards {CurrentLocation.LocationToWest.Name}. Are you sure? (Y/N)");
                         confirmation = Console.ReadLine().ToUpper();
 
                         if (confirmation == "Y")
@@ -179,6 +184,25 @@ public class Player
 
     public void NameLisa()
     {
-        
+        List<string> Lisa = new List<string>
+        {
+            "Wow...",
+            "Lisa...",
+            "What a beautiful name.",
+            "I'm in shock.",
+            "I never heard such a beautiful name before.",
+            "A name like that deserves something special.",
+            "So here, take my secret weapon.",
+            "I only give this to people with exceptionally good names...",
+            "You abtained \u001b[33mThe legendary Lisa Abliterator\u001b[0m",
+            "Use it wisely.",
+            "Or not i don't really care."
+        };
+
+        foreach (string text in Lisa)
+        {
+            Console.WriteLine(text);
+            Console.ReadLine();
+        }
     }
 }
