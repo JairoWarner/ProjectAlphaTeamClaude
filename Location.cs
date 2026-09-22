@@ -57,7 +57,7 @@ public class Location
         string forest = Point("S", World.LOCATION_ID_SPIDER_FIELD);
         string home = Point("H", World.LOCATION_ID_HOME);
         string shop = Point("S", World.LOCATION_ID_SHOP);
-
+        
         Console.WriteLine($@"{cyan}
     ╔═══════════════════════════════════════════════════════════════════════════════════════════╗
     ║                                         WORLD MAP                                         ║
@@ -86,9 +86,9 @@ public class Location
                                     │   HOME    │   │   SHOP    │
                                     ╰───────────╯   ╰───────────╯
 
-    {yellow}YOU ARE HERE: {Name}{gray}
+    {yellow}YOU ARE HERE: {Name}
 
-    {yellow}[ ] Your location{gray}       {green}[ ] Other locations{gray}
+    {yellow}[ ] Your location       {green}[ ] Other locations
 
     {cyan}─────────────────────────────────────────────────────────────────────────────────────────────{reset}
 ");
@@ -103,15 +103,8 @@ public class Location
             Item healingPotion = World.ItemByID(World.ITEM_ID_HEALING_POTION);
             Item bread = World.ItemByID(World.ITEM_ID_JUST_BREAD);
 
-            Inventory.AddItemsToInventory(rustySword.Name, rustySword.ID, rustySword.Description, rustySword.Equipped,
-                rustySword.Type, rustySword.ForBattle, rustySword.Quantity, rustySword.IsStackable);
-            Inventory.AddItemsToInventory(club.Name, club.ID, club.Description, club.Equipped, club.Type,
-                club.ForBattle, club.Quantity, club.IsStackable);
-            Inventory.AddItemsToInventory(healingPotion.Name, healingPotion.ID, healingPotion.Description,
-                healingPotion.Equipped, healingPotion.Type, healingPotion.ForBattle, healingPotion.Quantity,
-                healingPotion.IsStackable);
-            Inventory.AddItemsToInventory(bread.Name, bread.ID, bread.Description, bread.Equipped, bread.Type,
-                bread.ForBattle, bread.Quantity, bread.IsStackable);
+            Inventory.AddItemsToInventory(rustySword.Name, rustySword.ID, rustySword.Description, rustySword.Equipped, rustySword.Type, rustySword.ForBattle, rustySword.Quantity, rustySword.IsStackable);
+            Inventory.AddItemsToInventory(bread.Name, bread.ID, bread.Description, bread.Equipped, bread.Type, bread.ForBattle, bread.Quantity, bread.IsStackable);
 
             Console.WriteLine($"On your way to Town square you found a {rustySword.Name}");
 
