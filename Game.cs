@@ -2,8 +2,10 @@
 
 public class Game
 {
+    List<string> word = ["A", "s", " ", "t", "h", "e", " ", "w", "i", "n", "d", " ", "c", "a", "t", "c", "h", "e", "s", " ", "y", "o", "u", "r", " ", "s", "a", "i", "l", " ", "t", "o", " ", "c", "a", "r", "r", "y", " ", "y", "o", "u", " ", "t", "o", " ", "u", "n", "c", "h", "a", "r", "t", "e", "d", " ", "l", "a", "n", "d", "s", ",", " ", "y", "o", "u", " ", "r", "e", "f", "l", "e", "c", "t", " ", "o", "n", " ", "y", "o", "u", "r", " ", "j", "o", "u", "r", "n", "e", "y", "."];
     private bool playing = true;
     private int count = 0;
+    private bool game_won = false;
     private Player player;
 
 
@@ -97,7 +99,11 @@ public class Game
         Console.WriteLine("3: Fight");
         Console.WriteLine("4: Inventory");
         Console.WriteLine("5: Talk");
-        Console.WriteLine("6: Quit");
+        if(player.CompletedQuests.Count == 3 && player.CurrentLocation.Name == "Forest")
+        {
+            GUI.CWLine("6: Conclude your journey", ConsoleColor.Yellow);
+        }
+        Console.WriteLine("7: Quit");
 
         Console.ResetColor();
     }
@@ -128,7 +134,15 @@ public class Game
                 break;
 
             case "6":
+                CheckGameWon();
+                break;
+
+            case "7":
                 playing = false;
+                break;
+
+            case "cheat":
+                GameCheat();
                 break;
 
             default:
@@ -406,6 +420,85 @@ public class Game
             Console.WriteLine(
                 "\nGame over — you have died."
             );
+        }
+    }
+
+    private void GameCheat()
+    {
+        if(player.CompletedQuests.Count < 3)
+            foreach(Quest quest in World.Quests)
+            {
+                player.CompletedQuests.Add(quest);
+            }
+        player.CurrentLocation = World.LocationByID(World.LOCATION_ID_SPIDER_FIELD);
+    }
+
+    private void CheckGameWon()
+    {
+        if (player.CompletedQuests.Count == 3 && player.CurrentLocation.Name == "Forest")
+        {
+            Console.Clear();
+            if(!game_won)
+            {
+                Console.WriteLine($"As you cast down the final spider, a sense of victory washes over you.");
+                Console.Write($"Your adventure has come to an end at last, you now have the freedom to walk around as you please, or perhaps you have seen enough of this land");
+                DateTime endTime2 = DateTime.Now.AddSeconds(3);
+
+                while (DateTime.Now < endTime2)
+                {
+                    Thread.Sleep(500);
+                    Console.Write(".");
+
+                    Thread.Sleep(500);
+                    Console.Write(".");
+
+                    Thread.Sleep(500);
+                    Console.Write(".");
+
+                    Thread.Sleep(500);
+                    Console.Write("?");
+                    Thread.Sleep(1000);
+                }
+                Console.WriteLine("\n");
+                game_won = true;
+            }
+            if(game_won)
+            {
+                Console.WriteLine($"You spot a single sailboat on the shore of the forest, ready to take you to who knows where");
+                Thread.Sleep(2000);
+                GUI.CWLine($"\n\n\nDo you wish to end the game? THERE IS NO RETURNING ONCE YOU DECIDE TO DO SO! (Y/N)", ConsoleColor.DarkRed);
+                string End_Answer = "";
+                while(End_Answer != "Y" || End_Answer != "N")
+                {
+                    End_Answer = Console.ReadLine().ToUpper();
+                    if(End_Answer == "Y")
+                    {
+                        Console.Clear();
+                        for(int i = 0; i < word.Count(); i++)
+                        {
+                            Console.Write(word[i]);
+                            Thread.Sleep(5);
+                        }
+                        Thread.Sleep(5000);
+                        Console.Clear();
+                        ShowGameStats();
+                        GUI.CWLine($"CONGRATULATIONS, YOU HAVE HELPED THE CITIZENS OF THIS LAND SO THEY MAY NOW LIVE IN PEACE!", ConsoleColor.Yellow);
+                        playing = false;
+                        break;
+                    }
+                    else if(End_Answer == "N")
+                    {
+                        Console.WriteLine($"You're not quite ready to leave yet.");
+                        Thread.Sleep(2000);
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("This isn't a right answer, please try again.");
+                        Thread.Sleep(2000);
+                    }
+                }
+            }
         }
     }
 }
