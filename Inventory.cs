@@ -2,10 +2,10 @@
 
 public static class Inventory
 {
-    public static List<(string Name, int ID, string Description, bool Equiped, string Type, bool ForBattle, int Quantity)> inventory = new();
-    public static List<(string Name, int ID, string Description, bool Equiped, string Type, bool ForBattle, int Quantity)> battleInventory = new();
+    public static List<(string Name, int ID, string Description, bool Equiped, string Type, bool ForBattle, int Quantity, int Damage)> inventory = new();
+    public static List<(string Name, int ID, string Description, bool Equiped, string Type, bool ForBattle, int Quantity, int Damage)> battleInventory = new();
 
-    public static void inventoryMenu()
+    public static void inventoryMenu(Player player)
     {
         Console.Clear();
         Console.WriteLine("1: View inventory");
@@ -20,14 +20,14 @@ public static class Inventory
         {
             Console.Clear();
             GetInventory();
-            Console.WriteLine("Type ENTER to continue");
-            Console.ReadLine();
+            GUI.PressEnter();
         }
 
         if (choice == "2")
         {
+            GetInventory();
             Console.WriteLine("What item would you like to remove?");
-            string removeItem = Console.ReadLine();
+            int removeItem = int.Parse(Console.ReadLine());
 
             RemoveItemFromInventory(removeItem);
         }
@@ -49,7 +49,7 @@ public static class Inventory
             Console.WriteLine("Type the weapon ID that you want to Equip:");
             int weaponID = int.Parse(Console.ReadLine());
 
-            EquipWeapon(weaponID);
+            EquipWeapon(weaponID, player);
         }
 
         if (choice == "5")
@@ -58,43 +58,68 @@ public static class Inventory
         }
     }
 
-    public static void AddItemsToInventory(string item, int id, string description, bool equiped, string type, bool forBattle, int quantity, bool isStackable)
+    public static void AddItemsToInventory(string item, int id, string description, bool equiped, string type, bool forBattle, int quantity, bool isStackable, int damage)
     {
-        foreach (var inventoryItem in inventory)
+        for (int i = 0; i < inventory.Count; i++)
         {
-            if (item == inventoryItem.Name)
+            if (inventory[i].ID  == id)
             {
-                if (isStackable == false)
+                if (!isStackable)
                     return;
                 
-                quantity += 1;
-            }
-            
-            if (item != inventoryItem.Name)
-            {
-                quantity += 1;
-                inventory.Add((item, id, description, equiped, type, forBattle, quantity));
+                var inventoryItem = inventory[i];
+                inventoryItem.Quantity++;
+                inventory[i] =  inventoryItem;
                 
                 if (forBattle)
                 {
-                    battleInventory.Add((item, id, description, equiped, type, forBattle, quantity));
+                    for (int j = 0; j < battleInventory.Count; j++)
+                    {
+                        if (battleInventory[j].ID == id)
+                        {
+                            var battleItem = battleInventory[j];
+                            battleItem.Quantity++;
+                            battleInventory[j] = battleItem;
+                            break;
+                        }
+                    }
                 }
+
+                return;
             }
+        }
+        
+        inventory.Add((item, id, description, equiped, type, forBattle, 1, damage));
+
+        if (forBattle)
+        {
+            battleInventory.Add((item, id, description, equiped, type, forBattle, 1, damage));
         }
     }
 
-    public static void RemoveItemFromInventory(string item)
+    public static void RemoveItemFromInventory(int itemID)
     {
-        foreach (var inventoryItem in inventory)
+        int counter = 0;
+        for (int i = 0;  i < inventory.Count; i++)
         {
-            if (inventoryItem.Name == item)
+            if (inventory[i].ID == 5)
             {
-                inventory.Remove(inventoryItem);
+                foreach (string text in BreadStorys.breadStory1)
+                {
+                    Console.WriteLine(text);
+                    Console.ReadLine();
+                    Thread.Sleep(500);
+                    Console.Clear();
+                }
+            }
+            if (inventory[i].ID == itemID)
+            {
+                inventory.Remove(inventory[i]);
                 return;
             }
         }
 
-        Console.WriteLine($"{item} is not in the inventory");
+        Console.WriteLine($"{itemID} is not in the inventory");
     }
 
     public static void CheckDescription(int item)
@@ -112,8 +137,7 @@ public static class Inventory
                     Console.WriteLine(inventoryItem.Description);
                 }
 
-                Console.WriteLine("Press ENTER to continue");
-                Console.ReadLine();
+                GUI.PressEnter();
                 return;
             }
         }
@@ -132,9 +156,7 @@ public static class Inventory
                 {
                     Console.Write($"{inventoryItem.ID}: {inventoryItem.Name} x{inventoryItem.Quantity}");
 
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.Write("\u001b[3mis equipped\u001b[0m");
-                    Console.ResetColor();
+                    GUI.CWLine(" - is equipped", ConsoleColor.Green);
 
                     Console.WriteLine();
                 }
@@ -154,10 +176,8 @@ public static class Inventory
                 if (inventoryItem.Equiped)
                 {
                     Console.Write($"{inventoryItem.ID}: {inventoryItem.Name} x{inventoryItem.Quantity}");
-
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.Write("\u001b[3mis equipped\u001b[0m");
-                    Console.ResetColor();
+                    
+                    GUI.CWLine(" - is equipped", ConsoleColor.Green);
 
                     Console.WriteLine();
                 }
@@ -176,9 +196,7 @@ public static class Inventory
             {
                 Console.Write($"{inventoryItem.ID}: {inventoryItem.Name} ");
 
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write("\u001b[3mis equipped\u001b[0m");
-                Console.ResetColor();
+                GUI.CWLine(" - is equipped", ConsoleColor.Green);
 
                 Console.WriteLine();
             }
@@ -189,10 +207,12 @@ public static class Inventory
         }
     }
 
-    public static void EquipWeapon(int item)
+    public static void EquipWeapon(int item, Player player)
     {
         Console.Clear();
 
+        player.CurrentWeapon = null;
+        
         for (int i = 0; i < inventory.Count; i++)
         {
             if (inventory[i].Type == "weapon")
@@ -202,6 +222,7 @@ public static class Inventory
                 if (inventory[i].ID == item)
                 {
                     inventoryItem.Equiped = true;
+                    player.CurrentWeapon = World.ItemByID(inventory[i].ID);
                 }
                 else
                 {
@@ -230,65 +251,16 @@ public static class Inventory
             {
                 Item item = World.ItemByID(itemID);
                 var inventoryItem = battleInventory[i];
-    
+
                 if (inventoryItem.Type == "healing potion")
                 {
-                    player.Heal(item.HealingValue);
-    
-                    Console.WriteLine($"You used {item.Name}.");
-                    Console.WriteLine($"You healed {item.HealingValue} HP.");
-                    Console.WriteLine($"Current HP: {player.Health.Currenthitpoints}/{player.Health.Maximumhitpoints}");
-    
-                    inventoryItem.Quantity--;
-    
-                    if (inventoryItem.Quantity <= 0)
-                    {
-                        battleInventory.RemoveAt(i);
-    
-                        for (int j = 0; j < inventory.Count; j++)
-                        {
-                            if (inventory[j].ID == itemID)
-                            {
-                                inventory.RemoveAt(j);
-                                break;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        battleInventory[i] = inventoryItem;
-                    }
-    
+                    item.UseHealingPotion(player, i);
                     return;
                 }
-    
+
                 if (inventoryItem.Type == "strength potion")
                 {
-                    player.CurrentWeapon.Damage += item.HealingValue;
-    
-                    Console.WriteLine($"You used {item.Name}.");
-                    Console.WriteLine($"Your attack damage increased by {item.HealingValue}.");
-    
-                    inventoryItem.Quantity--;
-    
-                    if (inventoryItem.Quantity <= 0)
-                    {
-                        battleInventory.RemoveAt(i);
-    
-                        for (int j = 0; j < inventory.Count; j++)
-                        {
-                            if (inventory[j].ID == itemID)
-                            {
-                                inventory.RemoveAt(j);
-                                break;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        battleInventory[i] = inventoryItem;
-                    }
-    
+                    item.UseStrengthPotion(player, i);
                     return;
                 }
             }

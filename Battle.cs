@@ -12,6 +12,7 @@ public static class Battle
         {
             isActive = true;
 
+            Console.WriteLine();
             List<string> choiceMenu = new(["A", "F", "I"]);
             string choice = " ";
 
@@ -22,6 +23,8 @@ public static class Battle
                 Console.WriteLine("I: Inventory");
                 choice = Console.ReadLine();
             }
+
+            Console.WriteLine();
 
             if (choice.ToUpper() == "A")
             {
@@ -53,7 +56,7 @@ public static class Battle
 
             else if (choice.ToUpper() == "I")
             {
-                
+                Console.WriteLine();
                 Console.WriteLine("1: Check Inventory");
                 Console.WriteLine("2: Use Item");
                 Console.WriteLine("3: Go Back");
@@ -62,17 +65,19 @@ public static class Battle
 
                 if (Choice == 1)
                 {
+                    Console.WriteLine();
                     Inventory.GetInventory();
-                    Console.WriteLine("press ENTER to go back.");
+                    Console.WriteLine("\npress ENTER to go back.");
                     Console.ReadLine();
                     continue;
                 }
 
                 if (Choice == 2)
                 {
+                    Console.WriteLine();
                     Inventory.GetInventory();
 
-                    Console.WriteLine("Type the ID of the item you want to use:");
+                    Console.WriteLine("\nType the ID of the item you want to use:");
                     int itemID = int.Parse(Console.ReadLine());
 
                     Inventory.UseItem(itemID, player);
@@ -84,8 +89,9 @@ public static class Battle
                 }
             }
 
-            Console.WriteLine("Press any key to continue...");
+            Console.WriteLine("\nPress any key to continue...");
             Console.ReadKey();
+            Console.WriteLine();
 
             if (monster.IfAlive())
             {
@@ -102,6 +108,8 @@ public static class Battle
                 }
             }
         }
+
+        Console.WriteLine();
 
         if (player.IfAlive() && hasFled == false)
         {

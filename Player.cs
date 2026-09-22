@@ -1,10 +1,12 @@
-﻿namespace ConsoleApp4;
+﻿using System.Xml.Schema;
+
+namespace ConsoleApp4;
 
 public class Player
 {
     public string Name;
     public Health Health;
-    public Item CurrentWeapon;
+    public Item? CurrentWeapon;
     public Location CurrentLocation;
     public List<Quest> ActiveQuests = new([]);
     public List<Quest> CompletedQuests = new([]);
@@ -29,6 +31,11 @@ public class Player
 
     public int CalculateDamage()
     {
+        if (CurrentWeapon == null)
+        {
+            return 2;
+        }
+
         return World.RandomGenerator.Next(0, CurrentWeapon.Damage + 1);
     }
 
@@ -39,11 +46,17 @@ public class Player
         string confirmation = "";
 
         CurrentLocation.ShowMap();
-        Console.WriteLine($"You are currently at {CurrentLocation.Name}");
+        Console.WriteLine();
+        Console.WriteLine($"\u001b[33mYou are at: {CurrentLocation.Name}\u001b[0m");
 
         while (moving == false && moving_to != "Q")
         {
-            Console.WriteLine("Which direction would you like to head in? (N/E/S/W) (Q to stay where you are.)");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.WriteLine("Which direction would you like to head in? [0m to stay where you are.)");
+            Console.WriteLine("\n\u001b[93m[N] North   [E] East\n" +
+                              "[S] South   [W] West\u001b[0m " +
+                              "\n\u001b[91m[Q] to stay here\u001b");
+            Console.ResetColor();
             moving_to = Console.ReadLine().ToUpper();
 
             switch (moving_to)
@@ -55,12 +68,18 @@ public class Player
                     }
                     else
                     {
-                        Console.WriteLine($"You're planning to go North, towards {CurrentLocation.LocationToNorth.Name}. Are you sure? (Y/N)");
+                        Console.Clear();
+                        Console.WriteLine(
+                            $"You're planning to go North, towards {CurrentLocation.LocationToNorth.Name}. Are you sure?\n");
+                        GUI.CWLine($"[Y] Go {CurrentLocation.LocationToNorth.Name}", ConsoleColor.Green);
+                        GUI.CWLine($"[N] Stay at {CurrentLocation.Name}", ConsoleColor.Red);
+                        Console.Write("\nChoice: ");
                         confirmation = Console.ReadLine().ToUpper();
 
                         if (confirmation == "Y")
                         {
-                            Console.WriteLine($"You embark upon your path to {CurrentLocation.LocationToNorth.Name}");
+                            Console.WriteLine(
+                                $"You embark upon your path to \u001b[93m{CurrentLocation.LocationToNorth.Name}\u001b[0m");
                             CurrentLocation = CurrentLocation.LocationToNorth;
                             moving = true;
                         }
@@ -70,7 +89,7 @@ public class Player
                         }
                     }
 
-                    Console.WriteLine($"Your current location is: {CurrentLocation.Name}");
+                    Console.WriteLine($"Your current location is: \u001b[93m{CurrentLocation.Name}\u001b[m");
                     break;
 
                 case "E":
@@ -78,9 +97,14 @@ public class Player
                     {
                         Console.WriteLine("Unfortunately there is no location to your East.");
                     }
+                    else if (CurrentLocation.LocationToEast.Name == "Bridge" && CompletedQuests.Count < 2)
+                    {
+                        Console.WriteLine("You can not go east! Go complete some quests.");
+                    }
                     else
                     {
-                        Console.WriteLine($"You're planning to go East, towards {CurrentLocation.LocationToEast.Name}. Are you sure? (Y/N)");
+                        Console.WriteLine(
+                            $"You're planning to go East, towards {CurrentLocation.LocationToEast.Name}. Are you sure? (Y/N)");
                         confirmation = Console.ReadLine().ToUpper();
 
                         if (confirmation == "Y")
@@ -105,7 +129,8 @@ public class Player
                     }
                     else
                     {
-                        Console.WriteLine($"You're planning to go South, towards {CurrentLocation.LocationToSouth.Name}. Are you sure? (Y/N)");
+                        Console.WriteLine(
+                            $"You're planning to go South, towards {CurrentLocation.LocationToSouth.Name}. Are you sure? (Y/N)");
                         confirmation = Console.ReadLine().ToUpper();
 
                         if (confirmation == "Y")
@@ -130,7 +155,8 @@ public class Player
                     }
                     else
                     {
-                        Console.WriteLine($"You're planning to go West, towards {CurrentLocation.LocationToWest.Name}. Are you sure? (Y/N)");
+                        Console.WriteLine(
+                            $"You're planning to go West, towards {CurrentLocation.LocationToWest.Name}. Are you sure? (Y/N)");
                         confirmation = Console.ReadLine().ToUpper();
 
                         if (confirmation == "Y")
@@ -153,6 +179,30 @@ public class Player
                     Console.WriteLine($"Your current location is: {CurrentLocation.Name}");
                     break;
             }
+        }
+    }
+
+    public void NameLisa()
+    {
+        List<string> Lisa = new List<string>
+        {
+            "Wow...",
+            "Lisa...",
+            "What a beautiful name.",
+            "I'm in shock.",
+            "I never heard such a beautiful name before.",
+            "A name like that deserves something special.",
+            "So here, take my secret weapon.",
+            "I only give this to people with exceptionally good names...",
+            "You abtained \u001b[33mThe legendary Lisa Abliterator\u001b[0m",
+            "Use it wisely.",
+            "Or not i don't really care."
+        };
+
+        foreach (string text in Lisa)
+        {
+            Console.WriteLine(text);
+            Console.ReadLine();
         }
     }
 }

@@ -41,4 +41,75 @@ public class Item
     {
         target.TakeDamage(Damage);
     }
+    
+    public void UseHealingPotion(Player player, int inventoryIndex)
+    {
+        player.Heal(HealingValue);
+
+        Console.WriteLine($"You used {Name}.");
+        Console.WriteLine($"You healed {HealingValue} HP.");
+        Console.WriteLine(
+            $"Current HP: {player.Health.Currenthitpoints}/{player.Health.Maximumhitpoints}"
+        );
+
+        var inventoryItem = Inventory.battleInventory[inventoryIndex];
+
+        inventoryItem.Quantity--;
+
+        if (inventoryItem.Quantity <= 0)
+        {
+            Inventory.battleInventory.RemoveAt(inventoryIndex);
+
+            for (int j = 0; j < Inventory.inventory.Count; j++)
+            {
+                if (Inventory.inventory[j].ID == ID)
+                {
+                    Inventory.inventory.RemoveAt(j);
+                    break;
+                }
+            }
+        }
+        else
+        {
+            Inventory.battleInventory[inventoryIndex] = inventoryItem;
+        }
+    }
+    
+    public void UseStrengthPotion(Player player, int inventoryIndex)
+    {
+        if (player.CurrentWeapon == null)
+        {
+            Console.WriteLine("You need to equip a weapon first.");
+            return;
+        }
+
+        player.CurrentWeapon.Damage += HealingValue;
+
+        Console.WriteLine($"You used {Name}.");
+        Console.WriteLine(
+            $"Your attack damage increased by {HealingValue}."
+        );
+
+        var inventoryItem = Inventory.battleInventory[inventoryIndex];
+
+        inventoryItem.Quantity--;
+
+        if (inventoryItem.Quantity <= 0)
+        {
+            Inventory.battleInventory.RemoveAt(inventoryIndex);
+
+            for (int j = 0; j < Inventory.inventory.Count; j++)
+            {
+                if (Inventory.inventory[j].ID == ID)
+                {
+                    Inventory.inventory.RemoveAt(j);
+                    break;
+                }
+            }
+        }
+        else
+        {
+            Inventory.battleInventory[inventoryIndex] = inventoryItem;
+        }
+    }
 }
