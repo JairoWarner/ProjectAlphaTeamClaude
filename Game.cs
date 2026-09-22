@@ -23,8 +23,6 @@ public class Game
 
         player = new Player(playerName, 30, 30);
 
-        player.CurrentWeapon = World.ItemByID(World.WEAPON_ID_RUSTY_SWORD);
-
         player.CurrentLocation = World.LocationByID(World.LOCATION_ID_HOME);
     }
 
@@ -75,11 +73,9 @@ public class Game
 
     private void ShowLocation()
     {
-        Console.ForegroundColor = ConsoleColor.Cyan;
-        Console.WriteLine($"\nYou are at: {player.CurrentLocation.Name}");
+        GUI.CWLine($"\nYou are at: {player.CurrentLocation.Name}", ConsoleColor.Cyan);
 
-        Console.ForegroundColor = ConsoleColor.Gray;
-        Console.WriteLine(player.CurrentLocation.Description);
+        GUI.CWLine(player.CurrentLocation.Description, ConsoleColor.Gray);
     }
 
 
@@ -135,29 +131,68 @@ public class Game
 
     private void ShowGameStats()
     {
-        Console.WriteLine();
+        Console.Clear();
 
-        Console.WriteLine(
-            $"HP: {player.Health.Currenthitpoints}/{player.Health.Maximumhitpoints}"
-        );
+        GUI.CWLine("PLAYER STATUS\n", ConsoleColor.Yellow);
 
-        Console.WriteLine(
-            $"Weapon: {player.CurrentWeapon.Name} ({player.CurrentWeapon.Damage} damage)\n"
-        );
+        GUI.CWLine("Health", ConsoleColor.DarkGray);
+        GUI.CWLine($"{player.Health.Currenthitpoints}/{player.Health.Maximumhitpoints} HP\n", ConsoleColor.Green);
 
-        foreach (var quest in player.ActiveQuests)
+        GUI.CWLine("Weapon:", ConsoleColor.DarkGray);
+        bool weaponEquiped = false;
+
+        for (int i = 0; i < Inventory.inventory.Count; i++)
         {
-            Console.WriteLine($"Active Quest:\n{quest.Name}\n");
+            if (Inventory.inventory[i].Equiped)
+            {
+                weaponEquiped = true;
+                
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write($"{Inventory.inventory[i].Name} ");
+                Console.ResetColor();
+                Console.Write($"\u001b[91m+{Inventory.inventory[i].Damage} Attack\u001b[0m\n");
+            }
+
+            break;
         }
 
-        Console.WriteLine(
-            $"Completed Quest ({player.CompletedQuests.Count}/3):"
-        );
 
-        foreach (var quest in player.CompletedQuests)
+        if (!weaponEquiped)
         {
-            Console.WriteLine(quest.Name);
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.Write("no current weapon\n");
+            Console.ResetColor();
         }
+
+        GUI.CWLine("\nActive Quest", ConsoleColor.DarkGray);
+
+        if (player.ActiveQuests.Count == 0)
+        {
+            GUI.CWLine("No active quest", ConsoleColor.Gray);
+        }
+        else
+        {
+            foreach (var quest in player.ActiveQuests)
+            {
+                GUI.CWLine(quest.Name, ConsoleColor.Yellow);
+            }
+        }
+
+        GUI.CWLine($"\nCompleted Quests ({player.CompletedQuests.Count}/3)", ConsoleColor.DarkGray);
+
+        if (player.CompletedQuests.Count == 0)
+        {
+            GUI.CWLine("No quests completed yet", ConsoleColor.Gray);
+        }
+        else
+        {
+            foreach (var quest in player.CompletedQuests)
+            {
+                GUI.CWLine($"✓ {quest.Name}", ConsoleColor.Green);
+            }
+        }
+
+        GUI.PressEnter();
     }
 
 

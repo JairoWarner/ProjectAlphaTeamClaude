@@ -2,8 +2,8 @@
 
 public static class Inventory
 {
-    public static List<(string Name, int ID, string Description, bool Equiped, string Type, bool ForBattle, int Quantity)> inventory = new();
-    public static List<(string Name, int ID, string Description, bool Equiped, string Type, bool ForBattle, int Quantity)> battleInventory = new();
+    public static List<(string Name, int ID, string Description, bool Equiped, string Type, bool ForBattle, int Quantity, int Damage)> inventory = new();
+    public static List<(string Name, int ID, string Description, bool Equiped, string Type, bool ForBattle, int Quantity, int Damage)> battleInventory = new();
 
     public static void inventoryMenu()
     {
@@ -20,8 +20,7 @@ public static class Inventory
         {
             Console.Clear();
             GetInventory();
-            Console.WriteLine("Type ENTER to continue");
-            Console.ReadLine();
+            GUI.PressEnter();
         }
 
         if (choice == "2")
@@ -59,7 +58,7 @@ public static class Inventory
         }
     }
 
-    public static void AddItemsToInventory(string item, int id, string description, bool equiped, string type, bool forBattle, int quantity, bool isStackable)
+    public static void AddItemsToInventory(string item, int id, string description, bool equiped, string type, bool forBattle, int quantity, bool isStackable, int damage)
     {
         for (int i = 0; i < inventory.Count; i++)
         {
@@ -89,12 +88,12 @@ public static class Inventory
                 return;
             }
         }
-
-        inventory.Add((item, id, description, equiped, type, forBattle, 1));
+        
+        inventory.Add((item, id, description, equiped, type, forBattle, 1, damage));
 
         if (forBattle)
         {
-            battleInventory.Add((item, id, description, equiped, type, forBattle, 1));
+            battleInventory.Add((item, id, description, equiped, type, forBattle, 1, damage));
         }
     }
 
@@ -138,8 +137,7 @@ public static class Inventory
                     Console.WriteLine(inventoryItem.Description);
                 }
 
-                Console.WriteLine("Press ENTER to continue");
-                Console.ReadLine();
+                GUI.PressEnter();
                 return;
             }
         }
@@ -158,9 +156,7 @@ public static class Inventory
                 {
                     Console.Write($"{inventoryItem.ID}: {inventoryItem.Name} x{inventoryItem.Quantity}");
 
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.Write("\u001b[3mis equipped\u001b[0m");
-                    Console.ResetColor();
+                    GUI.CWLine(" - is equipped", ConsoleColor.Green);
 
                     Console.WriteLine();
                 }
@@ -180,10 +176,8 @@ public static class Inventory
                 if (inventoryItem.Equiped)
                 {
                     Console.Write($"{inventoryItem.ID}: {inventoryItem.Name} x{inventoryItem.Quantity}");
-
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.Write("\u001b[3mis equipped\u001b[0m");
-                    Console.ResetColor();
+                    
+                    GUI.CWLine(" - is equipped", ConsoleColor.Green);
 
                     Console.WriteLine();
                 }
@@ -202,9 +196,7 @@ public static class Inventory
             {
                 Console.Write($"{inventoryItem.ID}: {inventoryItem.Name} ");
 
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write(" \u001b[3mis equipped\u001b[0m");
-                Console.ResetColor();
+                GUI.CWLine(" - is equipped", ConsoleColor.Green);
 
                 Console.WriteLine();
             }

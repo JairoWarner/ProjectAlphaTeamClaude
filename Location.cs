@@ -96,20 +96,19 @@ public class Location
 
     public void TownSquare(Player player)
     {
-        if (Name == "Town square")
+        if (ID == World.LOCATION_ID_TOWN_SQUARE)
         {
             Item rustySword = World.ItemByID(World.WEAPON_ID_RUSTY_SWORD);
             Item club = World.ItemByID(World.WEAPON_ID_CLUB);
             Item healingPotion = World.ItemByID(World.ITEM_ID_HEALING_POTION);
             Item bread = World.ItemByID(World.ITEM_ID_JUST_BREAD);
 
-            Inventory.AddItemsToInventory(rustySword.Name, rustySword.ID, rustySword.Description, rustySword.Equipped, rustySword.Type, rustySword.ForBattle, rustySword.Quantity, rustySword.IsStackable);
-            Inventory.AddItemsToInventory(bread.Name, bread.ID, bread.Description, bread.Equipped, bread.Type, bread.ForBattle, bread.Quantity, bread.IsStackable);
+            Inventory.AddItemsToInventory(rustySword.Name, rustySword.ID, rustySword.Description, rustySword.Equipped, rustySword.Type, rustySword.ForBattle, rustySword.Quantity, rustySword.IsStackable, rustySword.Damage);
+            Inventory.AddItemsToInventory(bread.Name, bread.ID, bread.Description, bread.Equipped, bread.Type, bread.ForBattle, bread.Quantity, bread.IsStackable,  bread.Damage);
 
-            Console.WriteLine($"On your way to Town square you found a {rustySword.Name}");
+            Console.WriteLine($"\nOn your way to Town square you found a \u001b[93m{rustySword.Name}\u001b[0m");
 
-            Console.WriteLine("Press ENTER to continue");
-            Console.ReadLine();
+            GUI.PressEnter();
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace ConsoleApp4;
+﻿using System.Xml.Schema;
+
+namespace ConsoleApp4;
 
 public class Player
 {
@@ -61,12 +63,16 @@ public class Player
                     }
                     else
                     {
-                        Console.WriteLine($"You're planning to go North, towards {CurrentLocation.LocationToNorth.Name}. Are you sure? (Y/N)");
+                        Console.Clear();
+                        Console.WriteLine($"You're planning to go North, towards {CurrentLocation.LocationToNorth.Name}. Are you sure?\n");
+                        GUI.CWLine($"[Y] Go {CurrentLocation.LocationToNorth.Name}", ConsoleColor.Green);
+                        GUI.CWLine($"[N] Stay at {CurrentLocation.Name}", ConsoleColor.Red);
+                        Console.Write("\nChoice: ");
                         confirmation = Console.ReadLine().ToUpper();
 
                         if (confirmation == "Y")
                         {
-                            Console.WriteLine($"You embark upon your path to {CurrentLocation.LocationToNorth.Name}");
+                            Console.WriteLine($"You embark upon your path to \u001b[93m{CurrentLocation.LocationToNorth.Name}\u001b[0m");
                             CurrentLocation = CurrentLocation.LocationToNorth;
                             moving = true;
                         }
@@ -76,7 +82,7 @@ public class Player
                         }
                     }
 
-                    Console.WriteLine($"Your current location is: {CurrentLocation.Name}");
+                    Console.WriteLine($"Your current location is: \u001b[93m{CurrentLocation.Name}\u001b[m");
                     break;
 
                 case "E":

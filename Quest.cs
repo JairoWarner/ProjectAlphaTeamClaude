@@ -56,7 +56,8 @@ public class Quest
                 reward.Type,
                 reward.ForBattle,
                 1,
-                reward.IsStackable
+                reward.IsStackable,
+                reward.Damage
                 );
                 Console.WriteLine($"You received: {reward.Name}");
             }
