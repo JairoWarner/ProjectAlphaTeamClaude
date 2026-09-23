@@ -156,6 +156,9 @@ public static class World
 
         spiderField.LocationToWest = bridge;
 
+        Shop.LocationToWest = home;
+        Shop.LocationToNorth = guardPost;
+
         Locations.Add(home);
         Locations.Add(townSquare);
         Locations.Add(guardPost);
