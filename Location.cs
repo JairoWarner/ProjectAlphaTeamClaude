@@ -119,18 +119,15 @@ public class Location
                                     │  GARDEN   │                  {cyan}W ──┼── E{gray}
                                     ╰─────┬─────╯                      {cyan}S{gray}
                                           │
-                                          │
                                     ╭─────┴─────╮
                                     │    {alchemist}    │
                                     │ ALCHEMIST │
                                     ╰─────┬─────╯
                                           │
-                                          │
     ╭───────────╮   ╭───────────╮   ╭─────┴─────╮   ╭───────────╮   ╭───────────╮   ╭───────────╮
     │    {field}    ├───┤    {farmhouse}    ├───┤    {town}    ├───┤    {guard}    ├───┤    {bridge}    ├───┤    {forest}    │
     │ FARMLAND  │   │ FARMHOUSE │   │TOWN SQUARE│   │GUARD POST │   │  BRIDGE   │   │  FOREST   │
     ╰───────────╯   ╰───────────╯   ╰─────┬─────╯   ╰─────┬─────╯   ╰───────────╯   ╰───────────╯
-                                          │               │
                                           │               │
                                     ╭─────┴─────╮   ╭─────┴─────╮
                                     │    {home}    ├───┤    {shop}    │
